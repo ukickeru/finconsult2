@@ -1,0 +1,51 @@
+version: "2.7"
+
+server:
+    command: "php worker.php"
+    env:
+        - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+
+http:
+    address: 0.0.0.0:8080
+    internal_error_code: 505
+    middleware: ["static", "gzip"]
+    uploads:
+        forbid: [".php", ".exe", ".bat", ".sh", ".bash"]
+    static:
+        dir: "public"
+        forbid: [".php"]
+    pool:
+        num_workers: 2
+
+temporal:
+    address: temporal:7233
+    activities:
+        num_workers: 4
+
+rpc:
+    listen: tcp://127.0.0.1:6001
+
+status:
+    address: localhost:1112
+
+logs:
+    mode: development
+    encoding: console
+    line_ending: "\n"
+    channels:
+        server:
+            level: info
+            mode: raw
+        http:
+            level: debug
+        temporal:
+            level: debug
+
+reload:
+    enabled: true
+    interval: 1s
+    patterns: [".php", ".yaml", ".xml", ".env"]
+    services:
+        http:
+            dirs: ["."]
+            recursive: true
