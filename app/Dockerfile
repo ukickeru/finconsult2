@@ -13,11 +13,17 @@ RUN docker-php-ext-install zip \
   && docker-php-ext-install opcache sockets mbstring \
   && docker-php-ext-enable opcache sockets mbstring
 
-# Protobuf and GRPC
+# Protobuf
 ENV PROTOBUF_VERSION "3.19.2"
 RUN pecl channel-update pecl.php.net
-RUN pecl install protobuf-${PROTOBUF_VERSION} grpc \
-    && docker-php-ext-enable protobuf grpc
+RUN pecl install protobuf-${PROTOBUF_VERSION} \
+    && docker-php-ext-enable protobuf
+
+# GRPC
+ENV GRPC_VERSION "1.46.3"
+RUN pecl channel-update pecl.php.net
+RUN pecl install grpc-${GRPC_VERSION} \
+    && docker-php-ext-enable grpc
 
 # Install Temporal CLI
 COPY --from=temporalio/admin-tools /usr/local/bin/tctl /usr/local/bin/tctl
@@ -40,7 +46,7 @@ COPY ./ ./
 RUN composer install
 
 # Setup RoadRunner
-RUN vendor/bin/rr get --no-interaction \
+RUN vendor/bin/rr get -f 2.10.4 --no-interaction \
     && mv rr /usr/local/bin/rr \
     && chmod +x /usr/local/bin/rr
 
