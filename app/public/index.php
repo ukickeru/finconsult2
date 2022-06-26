@@ -1,6 +1,6 @@
 <?php
 
-use Finconsult\Documentor\Kernel;
+use Finconsult\Documentor\Shared\Kernel;
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 

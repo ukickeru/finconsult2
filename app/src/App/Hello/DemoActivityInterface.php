@@ -2,7 +2,7 @@
 
 namespace Finconsult\Documentor\App\Hello;
 
-use Finconsult\Documentor\Temporal\ActivityInterface as DomainActivityInterface;
+use Finconsult\Documentor\Shared\Temporal\ActivityInterface as DomainActivityInterface;
 use Temporal\Activity\ActivityInterface;
 
 #[ActivityInterface(prefix: 'demo_activity.')]

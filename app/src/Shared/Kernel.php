@@ -1,8 +1,8 @@
 <?php
 
-namespace Finconsult\Documentor;
+namespace Finconsult\Documentor\Shared;
 
-use Finconsult\Documentor\Temporal\Initialization\CompilerPass;
+use Finconsult\Documentor\Shared\Temporal\Initialization\CompilerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

@@ -1,8 +1,8 @@
 <?php
 
-use Finconsult\Documentor\Kernel;
-use Finconsult\Documentor\Temporal\Initialization\Environment;
-use Finconsult\Documentor\Temporal\Initialization\TemporalContainer;
+use Finconsult\Documentor\Shared\Kernel;
+use Finconsult\Documentor\Shared\Temporal\Initialization\Environment;
+use Finconsult\Documentor\Shared\Temporal\Initialization\TemporalContainer;
 use Temporal\WorkerFactory;
 
 require_once 'vendor/autoload.php';
@@ -11,8 +11,7 @@ require_once 'vendor/autoload.php';
 $factory = WorkerFactory::create();
 
 // Worker, который слушает указанную очередь задачи и содержит реализации Workflow и Activity
-/* @todo: забиндить ID очереди как переменную окружения */
-$worker = $factory->newWorker();
+$worker = $factory->newWorker(getenv('TEMPORAL_QUEUE_NAME') ?: 'default');
 
 // Единожды запускаем Kernel для получения DIC
 $env = Environment::fromGlobals();

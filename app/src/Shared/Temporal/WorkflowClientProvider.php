@@ -1,6 +1,6 @@
 <?php
 
-namespace Finconsult\Documentor\Temporal;
+namespace Finconsult\Documentor\Shared\Temporal;
 
 use Temporal\Client\GRPC\ServiceClient;
 use Temporal\Client\WorkflowClient;

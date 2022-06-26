@@ -1,6 +1,6 @@
 <?php
 
-namespace Finconsult\Documentor\Temporal\Initialization;
+namespace Finconsult\Documentor\Shared\Temporal\Initialization;
 
 class Environment
 {

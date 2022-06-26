@@ -7,5 +7,5 @@ overblog_graphql:
         mappings:
             types:
                 -   type: attribute
-                    dir: "%kernel.project_dir%/src/GraphQl"
+                    dir: "%kernel.project_dir%/src/Shared/GraphQl"
                     suffix: ~

@@ -1,9 +1,9 @@
 <?php
 
-namespace Finconsult\Documentor\Controller;
+namespace Finconsult\Documentor\Shared\Controller;
 
 use Finconsult\Documentor\App\Hello\DemoWorkflowInterface;
-use Finconsult\Documentor\Temporal\WorkflowClientProvider;
+use Finconsult\Documentor\Shared\Temporal\WorkflowClientProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

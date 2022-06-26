@@ -2,7 +2,7 @@
 
 namespace Finconsult\Documentor\App\Hello;
 
-use Finconsult\Documentor\Temporal\WorkflowInterface as DomainWorkflowInterface;
+use Finconsult\Documentor\Shared\Temporal\WorkflowInterface as DomainWorkflowInterface;
 use Temporal\Workflow\WorkflowInterface;
 use Temporal\Workflow\WorkflowMethod;
 

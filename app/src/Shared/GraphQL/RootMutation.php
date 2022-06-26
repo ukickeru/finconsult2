@@ -1,6 +1,6 @@
 <?php
 
-namespace Finconsult\Documentor\GraphQL;
+namespace Finconsult\Documentor\Shared\GraphQL;
 
 use Overblog\GraphQLBundle\Annotation as GQL;
 

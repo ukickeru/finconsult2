@@ -7,14 +7,14 @@ services:
     Finconsult\Documentor\:
         resource: '../src/'
         exclude:
-            - '../src/Temporal/Initialization/'
-            - '../src/Kernel.php'
+            - '../src/Shared/Temporal/Initialization/'
+            - '../src/Shared/Kernel.php'
 
-    Finconsult\Documentor\Controller\:
-        resource: '../src/Controller'
+    Finconsult\Documentor\Shared\Controller\:
+        resource: '../src/Shared/Controller'
         tags: ['controller.service_arguments']
 
     # Temporal
-    Finconsult\Documentor\Temporal\Initialization\TemporalContainer: ~
-    Finconsult\Documentor\Temporal\ActivityInterface: ~
-    Finconsult\Documentor\Temporal\WorkflowInterface: ~
+    Finconsult\Documentor\Shared\Temporal\Initialization\TemporalContainer: ~
+    Finconsult\Documentor\Shared\Temporal\ActivityInterface: ~
+    Finconsult\Documentor\Shared\Temporal\WorkflowInterface: ~

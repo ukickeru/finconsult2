@@ -54,3 +54,4 @@ RUN vendor/bin/rr get -f 2.10.4 --no-interaction \
 
 ENV APP_ENV=dev
 ENV APP_DEBUG=true
+ENV TEMPORAL_QUEUE_NAME=default
