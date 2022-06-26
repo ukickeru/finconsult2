@@ -8,31 +8,35 @@ use Spiral\RoadRunner\Environment;
 use Spiral\RoadRunner\Environment\Mode;
 use Temporal\WorkerFactory;
 
+// Логируем в RoadRunner
 ini_set('display_errors', 'stderr');
 
-/* @todo: инкапсулировать */
+// HTTP worker
 if ($_ENV['RR_MODE'] === 'http') {
+    // Устанавливаем SCRIPT_FILENAME для запуска успешного старта приложения из Symfony Runtime
     $_SERVER['SCRIPT_FILENAME'] = dirname(__FILE__) . '/public/index.php';
     require_once dirname(__FILE__) . '/public/index.php';
 }
 
+// Нельзя подключить раньше из-за Symfony Runtime
 require_once 'vendor/autoload.php';
 
 $env = Environment::fromGlobals();
 
+// Temporal worker
 if ($env->getMode() === Mode::MODE_TEMPORAL) {
 
-    // Finds all workflows and activities in a given directory
+    // Ищет все Workflow и Activities
     $locator = Locator::create(__DIR__ . '/src/');
 
-    // Initiates and runs task queue specific activity and workflow workers
+    // Создаёт Worker'ы Workflow и Activity для для определённой очереди задач
     $factory = WorkerFactory::create();
 
-    // Worker that listens on a task queue and hosts both workflow and activity implementations.
+    // Worker, который слушает указанную очередь задачи и содержит реализации Workflow и Activity
     /* @todo: забиндить ID очереди как переменную окружения */
     $worker = $factory->newWorker();
 
-    // Boot Kernel to provide DIC
+    // Единожды запускаем Kernel для получения DIC
     $environment = App\Temporal\Environment::fromGlobals();
     $symfonyKernel = new Kernel(
         $environment->get('APP_ENV','prod'),
@@ -41,12 +45,12 @@ if ($env->getMode() === Mode::MODE_TEMPORAL) {
     $symfonyKernel->boot();
     $container = $symfonyKernel->getContainer();
 
-    // Register workflow types
+    // Регистрируем ТИПЫ Workflows
     foreach ($locator->getWorkflowTypes() as $workflowType) {
         $worker->registerWorkflowTypes($workflowType);
     }
 
-    // Register activities instances
+    // Регистрируем РЕАЛИЗАЦИЮ Activities
     foreach ($locator->getActivityTypes() as $activityType) {
         $activityStub = $container->get($activityType);
         $worker->registerActivity($activityType, fn(ReflectionClass $class) => $container->get($class->getName()));

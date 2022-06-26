@@ -7,10 +7,16 @@ use Temporal\Client\WorkflowClient;
 
 class WorkflowClientProvider
 {
-    public static function create(string $address = 'localhost:7233'): WorkflowClient
+    private static ?WorkflowClient $workflowClient = null;
+
+    public static function instance(string $address = 'localhost:7233'): WorkflowClient
     {
-        return WorkflowClient::create(
-            ServiceClient::create($address)
-        );
+        if (!self::$workflowClient) {
+            self::$workflowClient = WorkflowClient::create(
+                ServiceClient::create($address)
+            );
+        }
+
+        return self::$workflowClient;
     }
 }

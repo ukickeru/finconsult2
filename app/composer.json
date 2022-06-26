@@ -7,6 +7,9 @@
     "require": {
         "php": "^8.0.15",
         "baldinof/roadrunner-bundle": "^2.2",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.12",
+        "overblog/graphql-bundle": "^0.15.0",
         "spiral/tokenizer": "^2.7",
         "symfony/console": "^6.0",
         "symfony/flex": "^2.1",
@@ -43,7 +46,13 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        }
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
     },
     "extra": {
         "symfony": {

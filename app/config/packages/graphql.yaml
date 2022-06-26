@@ -1,0 +1,11 @@
+overblog_graphql:
+    definitions:
+        schema:
+            default:
+                query: RootQuery
+                mutation: RootMutation
+        mappings:
+            types:
+                -   type: attribute
+                    dir: "%kernel.project_dir%/src/GraphQl"
+                    suffix: ~

@@ -14,7 +14,7 @@ class IndexController extends AbstractController
     #[Route(path: '/hello', name: 'hello')]
     public function index(): Response
     {
-        $workflowClient = WorkflowClientProvider::create('temporal:7233');
+        $workflowClient = WorkflowClientProvider::instance('temporal:7233');
 
         $demo = $workflowClient->newWorkflowStub(
             DemoWorkflowInterface::class,

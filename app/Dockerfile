@@ -1,16 +1,18 @@
 FROM php:8.0.15-cli
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  nano \
-  bash \
-  libzip-dev \
-  unzip \
-  libonig-dev
+    nano \
+    bash \
+    libzip-dev \
+    unzip \
+    libonig-dev \
+    libpq-dev \
+    zlib1g-dev
 
 # Install PHP Extensions
 ENV CFLAGS="$CFLAGS -D_GNU_SOURCE"
 RUN docker-php-ext-install zip \
-  && docker-php-ext-install opcache sockets mbstring \
+  && docker-php-ext-install opcache sockets mbstring pdo_pgsql \
   && docker-php-ext-enable opcache sockets mbstring
 
 # Protobuf
