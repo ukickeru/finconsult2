@@ -1,6 +1,6 @@
 <?php
 
-namespace App\App\Hello;
+namespace Finconsult\Documentor\App\Hello;
 
 use Temporal\Activity\ActivityOptions;
 use Temporal\Promise;

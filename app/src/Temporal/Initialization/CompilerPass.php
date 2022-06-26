@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Temporal\Initialization;
+namespace Finconsult\Documentor\Temporal\Initialization;
 
-use App\Temporal\ActivityInterface;
-use App\Temporal\WorkflowInterface;
+use Finconsult\Documentor\Temporal\ActivityInterface;
+use Finconsult\Documentor\Temporal\WorkflowInterface;
 use Spiral\RoadRunner\Environment as RREnv;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

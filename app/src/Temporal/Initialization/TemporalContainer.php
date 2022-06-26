@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Temporal\Initialization;
+namespace Finconsult\Documentor\Temporal\Initialization;
 
-use App\Temporal\ActivityInterface;
+use Finconsult\Documentor\Temporal\ActivityInterface;
 
 class TemporalContainer
 {

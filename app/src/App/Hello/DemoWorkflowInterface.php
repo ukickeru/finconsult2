@@ -1,8 +1,8 @@
 <?php
 
-namespace App\App\Hello;
+namespace Finconsult\Documentor\App\Hello;
 
-use App\Temporal\WorkflowInterface as DomainWorkflowInterface;
+use Finconsult\Documentor\Temporal\WorkflowInterface as DomainWorkflowInterface;
 use Temporal\Workflow\WorkflowInterface;
 use Temporal\Workflow\WorkflowMethod;
 

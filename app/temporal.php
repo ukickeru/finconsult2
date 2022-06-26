@@ -1,8 +1,8 @@
 <?php
 
-use App\Kernel;
-use App\Temporal\Initialization\Environment;
-use App\Temporal\Initialization\TemporalContainer;
+use Finconsult\Documentor\Kernel;
+use Finconsult\Documentor\Temporal\Initialization\Environment;
+use Finconsult\Documentor\Temporal\Initialization\TemporalContainer;
 use Temporal\WorkerFactory;
 
 require_once 'vendor/autoload.php';

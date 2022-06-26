@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Temporal;
+namespace Finconsult\Documentor\Temporal;
 
 interface WorkflowInterface
 {

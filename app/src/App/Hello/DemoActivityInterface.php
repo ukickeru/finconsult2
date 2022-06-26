@@ -1,8 +1,8 @@
 <?php
 
-namespace App\App\Hello;
+namespace Finconsult\Documentor\App\Hello;
 
-use App\Temporal\ActivityInterface as DomainActivityInterface;
+use Finconsult\Documentor\Temporal\ActivityInterface as DomainActivityInterface;
 use Temporal\Activity\ActivityInterface;
 
 #[ActivityInterface(prefix: 'demo_activity.')]

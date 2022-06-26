@@ -41,11 +41,11 @@ logs:
         temporal:
             level: debug
 
-reload:
-    enabled: true
-    interval: 1s
-    patterns: [".php", ".yaml", ".xml", ".env"]
-    services:
-        http:
-            dirs: ["."]
-            recursive: true
+#reload:
+#    enabled: true
+#    interval: 1s
+#    patterns: [".php", ".yaml", ".xml", ".env"]
+#    services:
+#        http:
+#            dirs: ["."]
+#            recursive: true
