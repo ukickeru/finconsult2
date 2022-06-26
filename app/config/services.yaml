@@ -7,11 +7,14 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/Entity/'
-            - '../src/Temporal/Environment.php'
-            - '../src/Temporal/Locator.php'
+            - '../src/Temporal/Initialization/'
             - '../src/Kernel.php'
 
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    # Temporal
+    App\Temporal\Initialization\TemporalContainer: ~
+    App\Temporal\ActivityInterface: ~
+    App\Temporal\WorkflowInterface: ~

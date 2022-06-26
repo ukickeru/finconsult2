@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Temporal;
+namespace App\Temporal\Initialization;
 
 class Environment
 {
@@ -17,11 +17,20 @@ class Environment
     public function get(string $name, mixed $default = ''): mixed
     {
         if (isset($this->env[$name]) || \array_key_exists($name, $this->env)) {
-            /* @psalm-suppress RedundantCastGivenDocblockType */
             return (string) $this->env[$name];
         }
 
         return $default;
+    }
+
+    public function getEnv(): string
+    {
+        return $this->get('APP_ENV', 'prod');
+    }
+
+    public function getDebug(): bool
+    {
+        return (bool) $this->get('APP_DEBUG', false);
     }
 
     public static function fromGlobals(): self
