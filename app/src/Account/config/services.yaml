@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Finconsult\Documentor\Account\:
+        resource: '../'
+        exclude:
+            - '../config/'
+            - '../Model/'
+
+    Finconsult\Documentor\Account\Controller\:
+        resource: '../Controller'
+        tags: ['controller.service_arguments']

@@ -62,7 +62,7 @@ services:
             - APP_ENV=dev
             - APP_DEBUG=true
             - TEMPORAL_CLI_ADDRESS=temporal:7233
-            - TEMPORAL_QUEUE_NAME=default
+            - TEMPORAL_NAMESPACE=default
         command: [ "/usr/local/bin/wait-for-temporal.sh", "temporal", "/usr/local/bin/rr", "serve", "-c", "/var/app/.rr.yaml" ]
         restart: unless-stopped
         healthcheck:

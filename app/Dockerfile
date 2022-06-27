@@ -39,10 +39,6 @@ WORKDIR /var/app
 COPY wait-for-temporal.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/wait-for-temporal.sh
 
-#RUN mkdir -p ./var/log \
-##    && touch ./var/log/rr_worklog.log \
-#    && chmod -Rf 666 ./var
-
 COPY ./ ./
 
 RUN composer install
@@ -54,4 +50,4 @@ RUN vendor/bin/rr get -f 2.10.4 --no-interaction \
 
 ENV APP_ENV=dev
 ENV APP_DEBUG=true
-ENV TEMPORAL_QUEUE_NAME=default
+ENV TEMPORAL_NAMESPACE=default

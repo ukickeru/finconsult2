@@ -2,7 +2,7 @@
 
 namespace Finconsult\Documentor\Shared\Controller;
 
-use Finconsult\Documentor\App\Hello\DemoWorkflowInterface;
+use Finconsult\Documentor\Sample\Hello\DemoWorkflowInterface;
 use Finconsult\Documentor\Shared\Temporal\WorkflowClientProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

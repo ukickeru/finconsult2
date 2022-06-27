@@ -7,7 +7,7 @@ class Environment
     /**
      * @var array<string, string>
      */
-    private array $env = [];
+    private array $env;
 
     public function __construct(array $env = [])
     {
@@ -28,15 +28,23 @@ class Environment
         return $this->get('APP_ENV', 'prod');
     }
 
-    public function getDebug(): bool
+    public function isDebugEnabled(): bool
     {
-        return (bool) $this->get('APP_DEBUG', false);
+        return 'prod' !== $this->getEnv() && $this->get('APP_DEBUG', false);
+    }
+
+    public function getTemporalAddress(): string
+    {
+        return $this->get('TEMPORAL_CLI_ADDRESS', 'temporal:7233');
+    }
+
+    public function getTemporalNamespace(): string
+    {
+        return $this->get('TEMPORAL_NAMESPACE', 'default');
     }
 
     public static function fromGlobals(): self
     {
-        $env = \array_merge($_ENV, $_SERVER);
-
-        return new self($env);
+        return new self(\array_merge($_ENV, $_SERVER));
     }
 }

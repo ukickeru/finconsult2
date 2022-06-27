@@ -1,6 +1,6 @@
 <?php
 
-namespace Finconsult\Documentor\App\Hello;
+namespace Finconsult\Documentor\Sample\Hello;
 
 class HelloActivity implements DemoActivityInterface
 {

@@ -7,27 +7,29 @@ use Temporal\WorkerFactory;
 
 require_once 'vendor/autoload.php';
 
-// Создаёт Worker'ы Workflow и Activity для для определённой очереди задач
+// Провайдер переменных окружения
+$env = Environment::fromGlobals();
+
+// Создаёт Workflow и Activity Workers для определённой очереди задач
 $factory = WorkerFactory::create();
 
 // Worker, который слушает указанную очередь задачи и содержит реализации Workflow и Activity
-$worker = $factory->newWorker(getenv('TEMPORAL_QUEUE_NAME') ?: 'default');
+$worker = $factory->newWorker($env->getTemporalNamespace());
 
 // Единожды запускаем Kernel для получения DIC
-$env = Environment::fromGlobals();
-$kernel = new Kernel($env->getEnv(), $env->getDebug());
+$kernel = new Kernel($env->getEnv(), $env->isDebugEnabled());
 $kernel->boot();
 $container = $kernel->getContainer();
 
 // Получаем объект с зарегистрированными Workflows и Activities
 $temporalContainer = $container->get(TemporalContainer::class);
 
-// Регистрируем ТИПЫ Workflows
+// Регистрируем Workflows
 foreach ($temporalContainer->getWorkflowTypes() as $workflow) {
     $worker->registerWorkflowTypes($workflow);
 }
 
-// Регистрируем РЕАЛИЗАЦИЮ Activities
+// Регистрируем Activities
 foreach ($temporalContainer->getActivityImplementations() as $activity) {
     $worker->registerActivity($activity::class, fn(ReflectionClass $class) => $activity);
 }
