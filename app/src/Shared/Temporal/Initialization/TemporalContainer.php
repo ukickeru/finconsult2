@@ -2,40 +2,33 @@
 
 namespace Finconsult\Documentor\Shared\Temporal\Initialization;
 
-use Finconsult\Documentor\Shared\Temporal\ActivityInterface;
+use Temporal\Worker\WorkerFactoryInterface;
+use Temporal\WorkerFactory;
 
 class TemporalContainer
 {
-    private array $workflowTypes = [];
-    private array $activityImplementations = [];
+    private Environment $environment;
 
-    /**
-     * @return string[]
-     */
-    public function getWorkflowTypes(): array
-    {
-        return $this->workflowTypes;
+    public function __construct(
+        private array $workflowTypes,
+        private array $activityImplementations
+    ) {
+        $this->environment = Environment::fromGlobals();
     }
 
-    public function addWorkflowType(string $workflowClass): void
+    public function getConfiguredFactory(): WorkerFactoryInterface
     {
-        if (!in_array($workflowClass, $this->workflowTypes)) {
-            $this->workflowTypes[] = $workflowClass;
+        $factory = WorkerFactory::create();
+        $worker = $factory->newWorker($this->environment->getTemporalNamespace());
+
+        foreach ($this->workflowTypes as $workflow) {
+            $worker->registerWorkflowTypes($workflow);
         }
-    }
 
-    /**
-     * @return ActivityInterface[]
-     */
-    public function getActivityImplementations(): array
-    {
-        return $this->activityImplementations;
-    }
-
-    public function addActivityImplementation(ActivityInterface $activity): void
-    {
-        if (!array_key_exists($activity::class, $this->activityImplementations)) {
-            $this->activityImplementations[$activity::class] = $activity;
+        foreach ($this->activityImplementations as $activity) {
+            $worker->registerActivity($activity::class, fn (\ReflectionClass $class) => $activity);
         }
+
+        return $factory;
     }
 }

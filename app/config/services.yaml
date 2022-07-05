@@ -23,6 +23,5 @@ services:
         tags: ['controller.service_arguments']
 
     # Temporal
-    Finconsult\Documentor\Shared\Temporal\Initialization\TemporalContainer: ~
     Temporal\Client\WorkflowClient:
         factory: ['Finconsult\Documentor\Shared\Temporal\WorkflowClientProvider', 'instance']

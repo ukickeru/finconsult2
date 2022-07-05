@@ -34,7 +34,7 @@ logs:
     line_ending: "\n"
     channels:
         server:
-            level: info
+            level: debug
             mode: raw
         http:
             level: debug

@@ -7,8 +7,6 @@ use Finconsult\Documentor\Shared\Temporal\WorkflowInterface;
 use Spiral\RoadRunner\Environment as RREnv;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
 
 class CompilerPass implements CompilerPassInterface
 {
@@ -47,54 +45,15 @@ class CompilerPass implements CompilerPassInterface
             return;
         }
 
-        $temporalContainer = $container->findDefinition(TemporalContainer::class);
+        $locator = new Locator($container, $container->getParameter('kernel.project_dir') . '/src');
 
-        $this->addTagToContainer(self::WORKFLOW_SERVICE_TAG, $temporalContainer, $container);
-        $this->addTagToContainer(self::ACTIVITY_SERVICE_TAG, $temporalContainer, $container);
-    }
-
-    private function addTagToContainer(string $tag, Definition $temporalContainer, ContainerBuilder $container): void
-    {
-        $taggedServices = $container->findTaggedServiceIds($tag);
-
-        if (empty($taggedServices)) {
-            return;
-        }
-
-        switch ($tag) {
-            case self::WORKFLOW_SERVICE_TAG:
-                $this->registerWorkflowTypes($temporalContainer, $taggedServices);
-                break;
-            case self::ACTIVITY_SERVICE_TAG:
-                $this->registerActivityImplementations($temporalContainer, $taggedServices);
-                break;
-        }
-    }
-
-    private function registerWorkflowTypes(Definition $definition, array $taggedServices): void
-    {
-        foreach (array_keys($taggedServices) as $serviceId) {
-            if (WorkflowInterface::class === $serviceId) {
-                continue;
-            }
-
-            $definition->addMethodCall('addWorkflowType', [
-                $serviceId,
-            ]);
-        }
-    }
-
-    private function registerActivityImplementations(Definition $definition, array $taggedServices): void
-    {
-        foreach (array_keys($taggedServices) as $serviceId) {
-            if (ActivityInterface::class == $serviceId) {
-                continue;
-            }
-
-            $definition->addMethodCall('addActivityImplementation', [
-                new Reference($serviceId),
-            ]);
-        }
+        $container
+            ->register(TemporalContainer::class, TemporalContainer::class)
+            ->setArguments([
+                '$workflowTypes' => $locator->getWorkflowTypes(),
+                '$activityImplementations' => $locator->getActivityImplementations(),
+            ])
+            ->setPublic(true);
     }
 
     private function isTemporalMode(): bool
