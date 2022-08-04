@@ -2,7 +2,8 @@
 
 namespace Finconsult\Documentor\Shared;
 
-use Finconsult\Documentor\Shared\Temporal\Initialization\CompilerPass;
+use Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\DependencyInjection\HandlerCompilerPass;
+use Finconsult\Documentor\Shared\Temporal\DependencyInjection\CompilerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,6 +23,10 @@ class Kernel extends BaseKernel
         $temporalInit = new CompilerPass();
         $temporalInit->register($container);
         $container->addCompilerPass($temporalInit);
+
+        $gqlHandlerPass = new HandlerCompilerPass();
+        $gqlHandlerPass->register($container);
+        $container->addCompilerPass($gqlHandlerPass);
     }
 
     private function configureContainer(ContainerConfigurator $container, LoaderInterface $loader, ContainerBuilder $builder): void

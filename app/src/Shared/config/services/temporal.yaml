@@ -1,0 +1,3 @@
+parameters:
+    app.temporal.temporal_cli_address: '%env(resolve:TEMPORAL_CLI_ADDRESS)%'
+    app.temporal.temporal_namespace: '%env(resolve:TEMPORAL_NAMESPACE)%'

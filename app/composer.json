@@ -7,8 +7,10 @@
     "require": {
         "php": "^8.0.15",
         "baldinof/roadrunner-bundle": "^2.2",
+        "beberlei/assert": "^3.3",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "lexik/jwt-authentication-bundle": "^2.16",
         "overblog/graphql-bundle": "^0.15.0",
         "spiral/tokenizer": "^2.7",
         "symfony/console": "^6.0",

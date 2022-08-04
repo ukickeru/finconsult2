@@ -1,4 +1,14 @@
+# Frontend
+frontend/.angular/
+frontend/build/
+frontend/dist/
+frontend/node_modules/
+
+# Backend
 var/
 vendor/
-Dockerfile
 rr
+.php-cs-fixer.cache
+
+# Common
+Dockerfile

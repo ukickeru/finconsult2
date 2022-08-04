@@ -1,8 +1,8 @@
 <?php
 
 use Finconsult\Documentor\Shared\Kernel;
-use Finconsult\Documentor\Shared\Temporal\Initialization\Environment;
-use Finconsult\Documentor\Shared\Temporal\Initialization\TemporalContainer;
+use Finconsult\Documentor\Shared\Temporal\DependencyInjection\Environment;
+use Finconsult\Documentor\Shared\Temporal\DependencyInjection\TemporalContainer;
 
 require_once 'vendor/autoload.php';
 

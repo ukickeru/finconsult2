@@ -6,7 +6,12 @@ server:
         - APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
 
 http:
-    address: 0.0.0.0:8080
+    address: 0.0.0.0:8079
+    ssl:
+        address: :8080
+        redirect: true
+        cert: config/certs/public.crt
+        key: config/certs/secret.key
     internal_error_code: 505
     middleware: ["static", "gzip"]
     uploads:
@@ -40,12 +45,3 @@ logs:
             level: debug
         temporal:
             level: debug
-
-#reload:
-#    enabled: true
-#    interval: 1s
-#    patterns: [".php", ".yaml", ".xml", ".env"]
-#    services:
-#        http:
-#            dirs: ["."]
-#            recursive: true

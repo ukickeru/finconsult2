@@ -1,11 +1,23 @@
 overblog_graphql:
     definitions:
         schema:
-            default:
+            root:
                 query: RootQuery
                 mutation: RootMutation
+            public:
+                query: PublicQuery
+                mutation: PublicMutation
         mappings:
             types:
+                # Shared\GraphQL
                 -   type: attribute
-                    dir: "%kernel.project_dir%/src/Shared/GraphQl"
+                    dir: "%kernel.project_dir%/src/Shared/Infrastructure/Controller/GraphQL"
+                    suffix: ~
+                # Shared\Model
+                -   type: attribute
+                    dir: "%kernel.project_dir%/src/Shared/Model"
+                    suffix: ~
+                # Shared\Security
+                -   type: attribute
+                    dir: "%kernel.project_dir%/src/Shared/Security"
                     suffix: ~

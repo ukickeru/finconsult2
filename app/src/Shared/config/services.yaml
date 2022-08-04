@@ -1,0 +1,35 @@
+imports:
+    - { resource: 'services/temporal.yaml' }
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Finconsult\Documentor\Shared\:
+        resource: '../'
+        exclude:
+            - '../src/Shared/**/DependencyInjection/'
+            - '../src/Shared/Contexts/'
+            - '../src/Shared/Infrastructure/Controller/GraphQL/DependencyInjection/'
+            - '../src/Shared/Model/'
+            - '../src/Shared/Persistence/'
+            - '../src/Shared/Security/'
+            - '../src/Shared/Kernel.php'
+
+    # GraphQL
+    Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Schema\:
+        resource: '../Infrastructure/Controller/GraphQL/Schema'
+        public: true
+
+    Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter: ~
+
+    Overblog\GraphQLBundle\Error\ExceptionConverterInterface:
+        class: 'Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter'
+
+
+    # Security
+    Finconsult\Documentor\Shared\Security\:
+        resource: '../Security'
+        exclude:
+            - '../Security/Model/Entity/'

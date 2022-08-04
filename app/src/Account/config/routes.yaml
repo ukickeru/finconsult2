@@ -1,3 +1,0 @@
-account:
-    resource: ../Controller/
-    type: annotation

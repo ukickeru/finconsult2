@@ -7,21 +7,8 @@ services:
     Finconsult\Documentor\:
         resource: '../src/'
         exclude:
-            - '../src/Account/'
             - '../src/Blanks/'
             - '../src/Clients/'
             - '../src/EACs/'
             - '../src/Positions/'
-            - '../src/Shared/Contexts/'
-            - '../src/Shared/Model/'
-            - '../src/Shared/Security/'
-            - '../src/Shared/Temporal/Initialization/'
-            - '../src/Shared/Kernel.php'
-
-    Finconsult\Documentor\Shared\Controller\:
-        resource: '../src/Shared/Controller'
-        tags: ['controller.service_arguments']
-
-    # Temporal
-    Temporal\Client\WorkflowClient:
-        factory: ['Finconsult\Documentor\Shared\Temporal\WorkflowClientProvider', 'instance']
+            - '../src/Shared/'
