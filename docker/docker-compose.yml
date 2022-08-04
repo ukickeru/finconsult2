@@ -1,3 +1,4 @@
+# todo: update env's usage
 version: "3.5"
 
 services:
@@ -60,12 +61,14 @@ services:
             - "8080:8080"
         volumes:
             - ./../app:/var/app
+            - ./../certs:/var/app/config/certs/
         environment:
             - APP_ENV=dev
             - APP_DEBUG=true
             - TEMPORAL_CLI_ADDRESS=temporal:7233
             - TEMPORAL_NAMESPACE=default
         command: [ "/usr/local/bin/wait-for-temporal.sh", "temporal", "/usr/local/bin/rr", "serve", "-c", "/var/app/.rr.yaml" ]
+#        command: ["tail", "-f", "/dev/null"]
         restart: on-failure
         healthcheck:
             test: curl -f http://localhost:1112/health?plugin=http || exit 1
