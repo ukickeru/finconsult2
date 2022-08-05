@@ -2,12 +2,14 @@
     "name": "ukickeru/finconsult-2",
     "type": "project",
     "description": "Finconsult v2 app",
+    "version": "0.0.1",
     "license": "proprietary",
     "minimum-stability": "beta",
     "require": {
         "php": "^8.0.15",
         "baldinof/roadrunner-bundle": "^2.2",
         "beberlei/assert": "^3.3",
+        "doctrine/annotations": "^1.13",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "lexik/jwt-authentication-bundle": "^2.16",
@@ -18,6 +20,8 @@
         "symfony/framework-bundle": "^6.0",
         "symfony/psr-http-message-bridge": "^2.1",
         "symfony/runtime": "^6.0",
+        "symfony/twig-bundle": "6.0.*",
+        "symfony/validator": "6.0.*",
         "symfony/yaml": "^6.0",
         "temporal/sdk": "^1.0"
     },

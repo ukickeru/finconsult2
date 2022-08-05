@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  appName: 'Finconsult'
+  appName: 'Finconsult',
+  baseUrl: 'https://localhost:8080',
 };

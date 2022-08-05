@@ -1,37 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth/auth.service";
+import type { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from '../../shared/security/auth/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.css'],
 })
-export class RegistrationComponent implements OnInit
-{
+export class RegistrationComponent implements OnInit {
   form: any = {
     email: null,
     name: null,
-    password: null
+    password: null,
   };
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
-    const {email, name, password} = this.form;
+    const { email, name, password } = this.form;
     this.authService.register(email, name, password).subscribe(
-      data => {
+      (data) => {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },
-      err => {
+      (err) => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       }

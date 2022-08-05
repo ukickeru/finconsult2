@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from "./pages/home/home.component";
-import { LoginComponent } from "./pages/login/login.component";
-import { RegistrationComponent } from "./pages/registration/registration.component";
-import { ProfileComponent } from "./pages/profile/profile.component";
-import { AuthService } from "./services/auth/auth.service";
+import type { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from '../../pages/home/home.component';
+import { LoginComponent } from '../../pages/login/login.component';
+import { RegistrationComponent } from '../../pages/registration/registration.component';
+import { ProfileComponent } from '../../pages/profile/profile.component';
+import { AuthService } from '../security/auth/auth.service';
 
 export const HOME_PATH = '';
 export const LOGIN_PATH = 'login';
@@ -21,8 +22,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule
-{
-}
+export class AppRoutingModule {}

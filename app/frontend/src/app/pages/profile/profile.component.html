@@ -10,11 +10,9 @@
   </p>
   <strong>Roles:</strong>
   <ul>
-    <li *ngFor="let role of user.getRoles()">
+    <li *ngFor="let role of user.getRole()">
       {{ role }}
     </li>
   </ul>
 </div>
-<ng-template #loggedOut>
-  Please login.
-</ng-template>
+<ng-template #loggedOut> Please login. </ng-template>

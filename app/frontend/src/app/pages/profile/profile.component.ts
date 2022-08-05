@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Token, TokenStorageService, UserPayload } from "../../services/auth/token-storage.service";
+import type { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { type Token, TokenStorageService, type UserPayload } from '../../shared/security/auth/token-storage.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent implements OnInit
-{
-  token: Token|null;
-  user: UserPayload|null;
+export class ProfileComponent implements OnInit {
+  token: Token | null;
+  user: UserPayload | null;
 
-  constructor(
-    private tokenStorage: TokenStorageService
-  ) {
-    this.token = tokenStorage.getToken()
-    this.user = tokenStorage.getUser()
+  constructor(private tokenStorage: TokenStorageService) {
+    this.token = tokenStorage.getToken();
+    this.user = tokenStorage.getUser();
   }
 
   ngOnInit(): void {

@@ -48,7 +48,7 @@ FROM backend AS run
 
 RUN useradd -ms /bin/bash worker
 WORKDIR /var/app
-COPY --from=frontend ./node/build ./public
+COPY --from=frontend ./node/build ./public/app
 RUN chown -R worker:worker /var/app \
     && chmod +x /usr/local/bin/php
 USER worker
