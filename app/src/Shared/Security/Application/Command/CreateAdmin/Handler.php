@@ -11,14 +11,13 @@ class Handler implements CommandHandlerInterface
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
-        private UserRepository $userRepository
+        private UserRepository $repository
     ) {
     }
 
-    // @todo: make usable only in console context?
     public function handle(Command $command): void
     {
-        $user = $this->userRepository->findAdminOrNullByEmail($command->email);
+        $user = $this->repository->findAdminOrNullByEmail($command->email);
 
         if ($user instanceof User) {
             $command->updateUser($user, $this->passwordHasher);
@@ -26,6 +25,6 @@ class Handler implements CommandHandlerInterface
             $user = $command->createUser($this->passwordHasher);
         }
 
-        $this->userRepository->save($user);
+        $this->repository->save($user);
     }
 }

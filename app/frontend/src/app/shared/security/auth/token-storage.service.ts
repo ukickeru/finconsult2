@@ -1,69 +1,48 @@
 import { Injectable } from '@angular/core';
+import { User } from './types/user';
 
-const TOKEN_KEY = 'token';
+const TOKEN = 'auth.token';
+const USER = 'auth.user';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class TokenStorageService {
-  signOut(): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-  }
-
-  public saveToken(token: Token): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, JSON.stringify(token));
-  }
-
-  public getToken(): Token | null {
-    let token = window.sessionStorage.getItem(TOKEN_KEY);
-
-    if (token) {
-      return Token.fromRawToken(JSON.parse(token));
+    public getToken(): string | null {
+        return window.sessionStorage.getItem(TOKEN);
     }
 
-    return null;
-  }
-
-  public getUser(): UserPayload | null {
-    const token = this.getToken();
-
-    if (token) {
-      return token.getUser();
+    public setToken(token: string): void {
+        window.sessionStorage.removeItem(TOKEN);
+        window.sessionStorage.setItem(TOKEN, token);
     }
 
-    return null;
-  }
-}
+    public getUser(): User | null {
+        const user = window.sessionStorage.getItem(USER);
 
-export class Token {
-  constructor(private user: UserPayload, private token: string) {}
+        if (user) {
+            try {
+                return User.fromRawObject(JSON.parse(user));
+            } catch (error: any) {
+                throw new Error('При загрузке учётной записи пользователя возникла ошибка: ' + error?.message);
+            }
+        }
 
-  public getUser() {
-    return this.user;
-  }
+        return null;
+    }
 
-  public getToken() {
-    return this.token;
-  }
+    public setUser(user: object): void {
+        try {
+            user = User.fromRawObject(user);
+        } catch (error: any) {
+            throw new Error('При валидации учётной записи пользователя возникла ошибка: ' + error?.message);
+        }
 
-  public static fromRawToken(token: any) {
-    return new Token(new UserPayload(token.user.name, token.user.email, token.user.role), token.token);
-  }
-}
+        window.sessionStorage.setItem(USER, JSON.stringify(user));
+    }
 
-export class UserPayload {
-  constructor(private name: string, private email: string, private role: string) {}
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public getEmail(): string {
-    return this.email;
-  }
-
-  public getRole(): string {
-    return this.role;
-  }
+    public signOut(): void {
+        window.sessionStorage.removeItem(TOKEN);
+        window.sessionStorage.removeItem(USER);
+    }
 }

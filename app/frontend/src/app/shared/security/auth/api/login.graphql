@@ -1,0 +1,3 @@
+query Login($email: String!, $password: String!) {
+    security_login(email: $email, password: $password)
+}

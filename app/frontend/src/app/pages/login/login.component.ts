@@ -1,61 +1,79 @@
-import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { AuthService } from '../../shared/security/auth/auth.service';
-import { TokenStorageService} from '../../shared/security/auth/token-storage.service';
-import { Token, UserPayload } from '../../shared/security/auth/token-storage.service';
+import { OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { AuthService } from '../../shared/security/auth/model/auth.service';
 import { Router } from '@angular/router';
 import { HOME_PATH } from '../../shared/app/app-routing.module';
+import { PreloaderComponent } from '../../shared/components/preloader/preloader.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModalComponent, State } from '../../shared/components/modal/modal.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  form: any = {
-    email: null,
-    password: null,
-  };
-  isLoggedIn = false;
-  isLoginFailed = false;
-  errorMessage = '';
-  role: string|null = '';
+    form: LoginForm = new LoginForm();
+    loginInProcess = false;
+    @ViewChild('preloader', { static: true }) preloader: PreloaderComponent;
+    modalRef: MdbModalRef<ModalComponent> | null = null;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router, private modalService: MdbModalService) {}
 
-  ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      // @ts-ignore
-      this.role = this.tokenStorage.getUser()?.getRole();
+    public ngOnInit(): void {
+        if (this.authService.isAuthenticated()) {
+            this.navigateToHome();
+        }
+
+        this.preloader.displayOver();
     }
-  }
 
-  onSubmit(): void {
-    const { email, password } = this.form;
+    public login(): void {
+        this.loginStarted();
 
-    this.authService.login(email, password).subscribe(
-      (data) => {
-        let user = new UserPayload(data.user.name, data.user.email, data.user.roles);
+        this.authService
+            .login(this.form.getEmail(), this.form.getPassword())
+            .then(() => this.navigateToHome())
+            .catch((error) => {
+                this.modalRef = this.modalService.open(ModalComponent, {
+                    data: { state: new State('Ошибка аутентификации!', error.message) },
+                });
+                this.loginOver();
+            });
+    }
 
-        let token = data.token;
+    private navigateToHome(): void {
+        this.router.navigate([HOME_PATH]);
+    }
 
-        this.tokenStorage.saveToken(new Token(user, token));
+    private loginStarted(): void {
+        this.loginInProcess = true;
+        this.preloader.show();
+    }
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        // @ts-ignore
-        this.role = this.tokenStorage.getUser().getRoles();
-        this.reloadPage();
-      },
-      (err) => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    );
-  }
+    private loginOver(): void {
+        this.loginInProcess = false;
+        this.preloader.hide();
+    }
+}
 
-  private reloadPage(): void {
-    window.location.href = HOME_PATH;
-  }
+class LoginForm {
+    public email: string | null = null;
+    public password: string | null = null;
+
+    public getEmail(): string {
+        if (this.email === null) {
+            throw new Error('Введите email!');
+        }
+
+        return this.email;
+    }
+
+    public getPassword(): string {
+        if (this.password === null) {
+            throw new Error('Введите пароль!');
+        }
+
+        return this.password;
+    }
 }

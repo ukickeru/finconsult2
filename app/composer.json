@@ -26,7 +26,8 @@
         "temporal/sdk": "^1.0"
     },
     "require-dev": {
-        "mygento/symfony-standard": "^v6.x-dev"
+        "mygento/symfony-standard": "^v6.x-dev",
+        "nelmio/cors-bundle": "^2.2"
     },
     "autoload": {
         "psr-4": {

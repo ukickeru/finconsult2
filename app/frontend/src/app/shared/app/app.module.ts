@@ -15,47 +15,51 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
+// Functional imports
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from '../../pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from '../../pages/home/home.component';
-import { RegistrationComponent } from '../../pages/registration/registration.component';
-import { ProfileComponent } from '../../pages/profile/profile.component';
-import { tokenInterceptorProviders } from '../security/auth/token-interceptor.service';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphQLModule } from '../infrastructure/graphql.module';
 
+// Components
+import { AppComponent } from './app.component';
+import { SharedComponentsModule } from '../components/shared-components.module';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from '../../pages/login/login.component';
+import { HomeComponent } from '../../pages/home/home.component';
+import { ProfileComponent } from '../../pages/profile/profile.component';
+import { tokenInterceptorProviders } from '../security/auth/token-interceptor.service';
+
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, ProfileComponent, RegistrationComponent],
-  imports: [
-    MdbAccordionModule,
-    MdbCarouselModule,
-    MdbCheckboxModule,
-    MdbCollapseModule,
-    MdbDropdownModule,
-    MdbFormsModule,
-    MdbModalModule,
-    MdbPopoverModule,
-    MdbRadioModule,
-    MdbRangeModule,
-    MdbRippleModule,
-    MdbScrollspyModule,
-    MdbTabsModule,
-    MdbTooltipModule,
-    MdbValidationModule,
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    GraphQLModule,
-  ],
-  providers: [tokenInterceptorProviders],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, HomeComponent, LoginComponent, ProfileComponent],
+    imports: [
+        MdbAccordionModule,
+        MdbCarouselModule,
+        MdbCheckboxModule,
+        MdbCollapseModule,
+        MdbDropdownModule,
+        MdbFormsModule,
+        MdbModalModule,
+        MdbPopoverModule,
+        MdbRadioModule,
+        MdbRangeModule,
+        MdbRippleModule,
+        MdbScrollspyModule,
+        MdbTabsModule,
+        MdbTooltipModule,
+        MdbValidationModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        GraphQLModule,
+        AppRoutingModule,
+        SharedComponentsModule,
+    ],
+    providers: [tokenInterceptorProviders],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -38,4 +38,8 @@ services:
     Finconsult\Documentor\Shared\Security\:
         resource: '../Security'
         exclude:
-            - '../Security/Model/Entity/'
+        - '../Security/Model/Entity/'
+
+    Finconsult\Documentor\Shared\Security\Model\Security:
+        bind:
+            $container: '@service_container'

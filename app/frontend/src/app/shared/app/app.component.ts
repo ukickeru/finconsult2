@@ -3,30 +3,30 @@ import { TokenStorageService } from '../security/auth/token-storage.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  appName = 'App';
-  isLoggedIn = false;
-  username?: string;
+    appName = 'App';
+    isLoggedIn = false;
+    username?: string;
 
-  constructor(private tokenStorageService: TokenStorageService) {
-    this.appName = environment.appName;
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.tokenStorageService.getToken() != null;
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.username = user?.getName();
+    constructor(private tokenStorageService: TokenStorageService) {
+        this.appName = environment.appName;
     }
-  }
 
-  logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
-  }
+    ngOnInit(): void {
+        this.isLoggedIn = this.tokenStorageService.getToken() != null;
+
+        if (this.isLoggedIn) {
+            const user = this.tokenStorageService.getUser();
+            this.username = user?.getName();
+        }
+    }
+
+    logout(): void {
+        this.tokenStorageService.signOut();
+        window.location.reload();
+    }
 }

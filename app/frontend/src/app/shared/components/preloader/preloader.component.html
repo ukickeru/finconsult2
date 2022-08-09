@@ -1,0 +1,11 @@
+<div *ngIf="!isDisplayOver && isShown; else withOverlay" class="preloader spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+<ng-template #withOverlay>
+    <div *ngIf="isShown" [ngClass]="{ show: isShown }" class="fade preloader-overlay">
+        <div class="preloader spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>

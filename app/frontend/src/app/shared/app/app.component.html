@@ -1,28 +1,36 @@
 <div id="app">
-  <header class="sticky-top position-fixed vw-100">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <div class="container-fluid d-flex justify-content-between align-items-center">
-        <div>
-          <img class="logo" src="favicon.ico" alt="Лого" /> <span class="ms-2">{{ appName }}</span>
-        </div>
-        <div class="d-inline-flex">
-          <div *ngIf="!isLoggedIn">
-            <a href="/registration" class="btn btn-sm btn-light mx-2" routerLink="registration">
-              <i class="fa fa-plus me-1"></i>Регистрация
-            </a>
-            <a href="/login" class="btn btn-sm btn-light mx-2" routerLink="login"> <i class="fa fa-sign-in me-1"></i>Вход </a>
-          </div>
-          <div *ngIf="isLoggedIn">
-            <a href="/home" class="btn btn-sm btn-light mx-2" routerLink=""> <i class="fa fa-home me-1"></i>Главная </a>
-            <a href="/profile" class="btn btn-sm btn-light mx-2" routerLink="profile"> <i class="fa fa-user me-1"></i>{{ username }} </a>
-            <a href="/logout" class="btn btn-sm btn-light mx-2" (click)="logout()"> <i class="fa fa-sign-out me-1"></i>Выйти </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+    <header class="sticky-top position-fixed vw-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div>
+                    <img class="logo" src="favicon.ico" alt="Лого" /> <span class="ms-2">{{ appName }}</span>
+                </div>
+                <div class="d-inline-flex">
+                    <div *ngIf="!isLoggedIn">
+                        <a href="/registration" class="btn btn-sm btn-light mx-2" routerLink="registration">
+                            <i class="fa fa-plus me-1"></i>Регистрация
+                        </a>
+                        <a href="/login" class="btn btn-sm btn-light mx-2" routerLink="login">
+                            <i class="fa fa-sign-in me-1"></i>Вход
+                        </a>
+                    </div>
+                    <div *ngIf="isLoggedIn">
+                        <a href="/home" class="btn btn-sm btn-light mx-2" routerLink="">
+                            <i class="fa fa-home me-1"></i>Главная
+                        </a>
+                        <a href="/profile" class="btn btn-sm btn-light mx-2" routerLink="profile">
+                            <i class="fa fa-user me-1"></i>{{ username }}
+                        </a>
+                        <a href="/logout" class="btn btn-sm btn-light mx-2" (click)="logout()">
+                            <i class="fa fa-sign-out me-1"></i>Выйти
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-  <div class="container-fluid">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
 </div>

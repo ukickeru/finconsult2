@@ -141,6 +141,14 @@ class User implements UserInterface, SymfonyUserInterface, PasswordAuthenticated
         string $password,
         UserPasswordHasherInterface $hasher
     ): self {
+        Assert::lazy()
+            ->tryAll()
+            ->that($password, null, 'Пароль должен содержать как минимум 8 символов!')
+            ->string()
+            ->notEmpty()
+            ->minLength(8)
+            ->verifyNow();
+
         $this->password = $hasher->hashPassword($this, $password);
 
         return $this;

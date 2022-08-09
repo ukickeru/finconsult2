@@ -1,0 +1,20 @@
+@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+
+.preloader {
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.preloader-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    background-color: $dark;
+}

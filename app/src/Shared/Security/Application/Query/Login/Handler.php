@@ -28,6 +28,14 @@ class Handler implements QueryHandlerInterface
             throw new \LogicException('Неверный пароль!');
         }
 
-        return $this->tokenManager->create($user);
+        if (!$user->isEnabled()) {
+            throw new \DomainException('Ваш аккаунт заблокирован! Пожалуйста, обратитесь к Администратору для разблокировки!');
+        }
+
+        try {
+            return $this->tokenManager->create($user);
+        } catch (\Throwable $exception) {
+            throw new \RuntimeException('Во время создания токена возникла ошибка: ' . $exception->getMessage());
+        }
     }
 }
