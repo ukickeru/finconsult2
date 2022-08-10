@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { type CanActivate, Router, type RouterStateSnapshot } from '@angular/router';
 import { type ActivatedRouteSnapshot } from '@angular/router';
-import { TokenStorageService } from '../token-storage.service';
-import { HOME_PATH, LOGIN_PATH, REGISTRATION_PATH } from '../../../app/app-routing.module';
-import { UrlGeneratorService } from '../../../infrastructure/url-generator.service';
+import { TokenStorageService } from '../infrastructure/token-storage.service';
+import { HOME_PATH, LOGIN_PATH } from '../../../app/app-routing.module';
 import { Apollo } from 'apollo-angular';
-import Login from '../api/login.graphql';
-import Profile from '../api/profile.graphql';
+import Login from '../infrastructure/api/login.graphql';
+import Profile from '../infrastructure/api/profile.graphql';
+import { GQLSchema } from '../../../infrastructure/url-generator.service';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +16,6 @@ export class AuthService implements CanActivate {
     constructor(
         private readonly http: HttpClient,
         private readonly tokenStorage: TokenStorageService,
-        private readonly urlGenerator: UrlGeneratorService,
         private readonly router: Router,
         private readonly gqlClient: Apollo
     ) {}
@@ -26,7 +25,7 @@ export class AuthService implements CanActivate {
             return this.router.parseUrl(LOGIN_PATH);
         }
 
-        if (state.url === LOGIN_PATH || state.url === REGISTRATION_PATH) {
+        if (state.url === LOGIN_PATH) {
             return this.router.parseUrl(HOME_PATH);
         }
 
@@ -44,6 +43,7 @@ export class AuthService implements CanActivate {
 
         return new Promise<void>((resolve, reject) => {
             this.gqlClient
+                .use(GQLSchema.Public)
                 .watchQuery({
                     query: Login,
                     variables: {
@@ -51,10 +51,11 @@ export class AuthService implements CanActivate {
                         password: password,
                     },
                 })
-                .valueChanges.subscribe({
+                .valueChanges
+                .subscribe({
                     next: async (token: any) => {
-                        this.tokenStorage.setToken(token);
-                        // await this.getProfile()
+                        this.tokenStorage.setToken(token.data.security_login);
+                        await this.getProfile()
                         resolve();
                     },
                     error: (error: Error) => {
@@ -70,15 +71,19 @@ export class AuthService implements CanActivate {
                 reject(Error('Авторизуйтесь для загрузки данных профиля!'));
             }
 
-            this.gqlClient.watchQuery({ query: Profile }).valueChanges.subscribe({
-                next: (data: object) => {
-                    this.tokenStorage.setUser(data);
-                    resolve();
-                },
-                error: (error: Error) => {
-                    reject(Error('Во время загрузки данных профиля возникла ошибка: ' + error.message));
-                },
-            });
+            this.gqlClient
+                .use(GQLSchema.Root)
+                .watchQuery({ query: Profile })
+                .valueChanges
+                .subscribe({
+                    next: (data: any) => {
+                        this.tokenStorage.setUser(data.data.security_profile);
+                        resolve();
+                    },
+                    error: (error: Error) => {
+                        reject(Error('Во время загрузки данных профиля возникла ошибка: ' + error.message));
+                    },
+                });
         });
     }
 }

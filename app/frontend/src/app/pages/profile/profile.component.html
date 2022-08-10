@@ -8,11 +8,9 @@
         <strong>Email:</strong>
         {{ user.getEmail() }}
     </p>
-    <strong>Roles:</strong>
-    <ul>
-        <li *ngFor="let role of user.getRole()">
-            {{ role }}
-        </li>
-    </ul>
+    <p>
+        <strong>Role:</strong>
+        {{ user.getRole() }}
+    </p>
 </div>
 <ng-template #loggedOut> Please login. </ng-template>

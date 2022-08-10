@@ -2,7 +2,6 @@ import { OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../../shared/security/auth/model/auth.service';
 import { Router } from '@angular/router';
-import { HOME_PATH } from '../../shared/app/app-routing.module';
 import { PreloaderComponent } from '../../shared/components/preloader/preloader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent, State } from '../../shared/components/modal/modal.component';
@@ -10,7 +9,7 @@ import { ModalComponent, State } from '../../shared/components/modal/modal.compo
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
     form: LoginForm = new LoginForm();
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
 
     private navigateToHome(): void {
-        this.router.navigate([HOME_PATH]);
+        window.location.reload()
     }
 
     private loginStarted(): void {

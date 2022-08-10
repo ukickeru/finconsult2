@@ -1,11 +1,10 @@
 overwrite: true
 schema: "../schema/*.graphql"
 documents: "src/**/*.graphql"
-#documents: null
 generates:
-  src/generated/graphql.ts:
-    plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-apollo-angular"
-      - "fragment-matcher"
+    src/generated/graphql.ts:
+        plugins:
+            - "typescript"
+            - "typescript-operations"
+            - "typescript-apollo-angular"
+            - "fragment-matcher"

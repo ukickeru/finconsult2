@@ -30,7 +30,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from '../../pages/login/login.component';
 import { HomeComponent } from '../../pages/home/home.component';
 import { ProfileComponent } from '../../pages/profile/profile.component';
-import { tokenInterceptorProviders } from '../security/auth/token-interceptor.service';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, LoginComponent, ProfileComponent],
@@ -59,7 +58,6 @@ import { tokenInterceptorProviders } from '../security/auth/token-interceptor.se
         AppRoutingModule,
         SharedComponentsModule,
     ],
-    providers: [tokenInterceptorProviders],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

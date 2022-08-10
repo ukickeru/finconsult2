@@ -8,7 +8,6 @@ import { AuthService } from '../security/auth/model/auth.service';
 
 export const HOME_PATH = '';
 export const LOGIN_PATH = 'login';
-export const REGISTRATION_PATH = 'registration';
 export const LOGOUT_PATH = 'logout';
 export const PROFILE_PATH = 'profile';
 

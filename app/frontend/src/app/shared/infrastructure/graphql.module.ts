@@ -1,28 +1,20 @@
 import { NgModule } from '@angular/core';
-import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
-import type { ApolloClientOptions } from '@apollo/client/core';
-import { InMemoryCache } from '@apollo/client/core';
+import { APOLLO_NAMED_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-
-const uri = 'https://localhost:8080/api/graphql/public';
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<object> {
-    return {
-        link: httpLink.create({ uri }),
-        cache: new InMemoryCache(),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
-    };
-}
+import { HttpClientModule } from '@angular/common/http';
+import { TokenStorageService } from '../security/auth/infrastructure/token-storage.service';
+import { createApollo } from './apollo.factory';
+import { UrlGeneratorService } from './url-generator.service';
 
 @NgModule({
-    exports: [ApolloModule],
+    imports: [ApolloModule, HttpClientModule],
     providers: [
         {
-            provide: APOLLO_OPTIONS,
+            provide: APOLLO_NAMED_OPTIONS,
             useFactory: createApollo,
-            deps: [HttpLink],
+            deps: [HttpLink, TokenStorageService, UrlGeneratorService],
         },
-    ],
+    ]
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+}

@@ -5,7 +5,13 @@
 export const environment = {
     production: false,
     appName: 'Finconsult',
-    baseUrl: 'https://localhost:8080',
+    api: {
+        baseUrl: 'https://localhost:8080',
+        gqlSchemas: {
+            root: 'https://localhost:8080/api/graphql/root',
+            public: 'https://localhost:8080/api/graphql/public',
+        }
+    },
 };
 
 /*
