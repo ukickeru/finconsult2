@@ -1,7 +1,7 @@
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { TokenStorageService } from '../../shared/security/auth/infrastructure/token-storage.service';
 import type { User } from '../../shared/security/auth/model/user';
+import { SecurityService } from '../../shared/security/security.service';
 
 @Component({
     selector: 'app-profile',
@@ -12,12 +12,12 @@ export class ProfileComponent implements OnInit {
     token: string | null;
     user: User | null;
 
-    constructor(private tokenStorage: TokenStorageService) {
-        this.token = tokenStorage.getToken();
-        this.user = tokenStorage.getUser();
+    constructor(private security: SecurityService) {
+        this.token = security.getToken();
+        security.getUser().then((user) => (this.user = user));
     }
 
     ngOnInit(): void {
-        // this.user = this.tokenStorage.getUser();
+        // this.user = this.security.getUser();
     }
 }

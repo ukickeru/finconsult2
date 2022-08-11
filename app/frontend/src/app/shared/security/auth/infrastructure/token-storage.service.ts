@@ -31,17 +31,19 @@ export class TokenStorageService {
         return null;
     }
 
-    public setUser(user: object): void {
-        try {
-            user = User.fromRawObject(user);
-        } catch (error: any) {
-            throw new Error('При валидации учётной записи пользователя возникла ошибка: ' + error?.message);
+    public setUser(user: User | object): void {
+        if (typeof user === 'object') {
+            try {
+                user = User.fromRawObject(user);
+            } catch (error: any) {
+                throw new Error('При валидации учётной записи пользователя возникла ошибка: ' + error?.message);
+            }
         }
 
         window.sessionStorage.setItem(USER, JSON.stringify(user));
     }
 
-    public signOut(): void {
+    public logout(): void {
         window.sessionStorage.removeItem(TOKEN);
         window.sessionStorage.removeItem(USER);
     }

@@ -1,10 +1,9 @@
 import { OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
-import { AuthService } from '../../shared/security/auth/model/auth.service';
-import { Router } from '@angular/router';
 import { PreloaderComponent } from '../../shared/components/preloader/preloader.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { ModalComponent, State } from '../../shared/components/modal/modal.component';
+import { SecurityService } from '../../shared/security/security.service';
+import { HOME_PATH } from '../../shared/app/app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,13 +14,12 @@ export class LoginComponent implements OnInit {
     form: LoginForm = new LoginForm();
     loginInProcess = false;
     @ViewChild('preloader', { static: true }) preloader: PreloaderComponent;
-    modalRef: MdbModalRef<ModalComponent> | null = null;
 
-    constructor(private authService: AuthService, private router: Router, private modalService: MdbModalService) {}
+    constructor(private readonly security: SecurityService, private readonly router: Router) {}
 
     public ngOnInit(): void {
-        if (this.authService.isAuthenticated()) {
-            this.navigateToHome();
+        if (this.security.isAuthenticated()) {
+            this.redirectToHome();
         }
 
         this.preloader.displayOver();
@@ -30,19 +28,17 @@ export class LoginComponent implements OnInit {
     public login(): void {
         this.loginStarted();
 
-        this.authService
+        this.security
             .login(this.form.getEmail(), this.form.getPassword())
-            .then(() => this.navigateToHome())
+            .then(() => this.redirectToHome())
             .catch((error) => {
-                this.modalRef = this.modalService.open(ModalComponent, {
-                    data: { state: new State('Ошибка аутентификации!', error.message) },
-                });
+                window.alert('Ошибка аутентификации!\n\n' + error.message);
                 this.loginOver();
             });
     }
 
-    private navigateToHome(): void {
-        window.location.reload()
+    private redirectToHome(): void {
+        this.router.navigate([HOME_PATH]);
     }
 
     private loginStarted(): void {

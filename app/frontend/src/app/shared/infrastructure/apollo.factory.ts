@@ -5,19 +5,18 @@ import { TokenStorageService } from '../security/auth/infrastructure/token-stora
 import { GQLSchema, UrlGeneratorService } from './url-generator.service';
 
 export function createApollo(httpLink: HttpLink, tokenStorage: TokenStorageService, urlGenerator: UrlGeneratorService) {
-    const factory = new ApolloFactory(tokenStorage, urlGenerator)
-    return factory.createApollo(httpLink)
+    const factory = new ApolloFactory(tokenStorage, urlGenerator);
+    return factory.createApollo(httpLink);
 }
 
 class ApolloFactory {
-    public constructor(private tokenStorage: TokenStorageService, private urlGenerator: UrlGeneratorService) {
-    }
+    public constructor(private tokenStorage: TokenStorageService, private urlGenerator: UrlGeneratorService) {}
 
     public createApollo(httpLink: HttpLink) {
         return {
             root: this.forRootSchema(httpLink),
             public: this.forPublicSchema(httpLink),
-        }
+        };
     }
 
     private forRootSchema(httpLink: HttpLink): ApolloClientOptions<any> {
@@ -27,10 +26,10 @@ class ApolloFactory {
                 this.getBaseOptions(),
                 this.getAuthOptions(),
                 httpLink.create({
-                    uri: this.urlGenerator.getGQLSchemaUrl(GQLSchema.Root)
-                })
-            ])
-        }
+                    uri: this.urlGenerator.getGQLSchemaUrl(GQLSchema.Root),
+                }),
+            ]),
+        };
     }
 
     private forPublicSchema(httpLink: HttpLink): ApolloClientOptions<any> {
@@ -39,17 +38,17 @@ class ApolloFactory {
             link: ApolloLink.from([
                 this.getBaseOptions(),
                 httpLink.create({
-                    uri: this.urlGenerator.getGQLSchemaUrl(GQLSchema.Public)
-                })
-            ])
-        }
+                    uri: this.urlGenerator.getGQLSchemaUrl(GQLSchema.Public),
+                }),
+            ]),
+        };
     }
 
     private getBaseOptions(): ApolloLink {
         return setContext((operation, context) => ({
             headers: {
-                Accept: 'charset=utf-8'
-            }
+                Accept: 'charset=utf-8',
+            },
         }));
     }
 
@@ -62,8 +61,8 @@ class ApolloFactory {
             } else {
                 return {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 };
             }
         });

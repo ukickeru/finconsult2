@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { TokenStorageService } from '../security/auth/infrastructure/token-storage.service';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { SecurityService } from '../security/security.service';
 
 @Component({
     selector: 'app-root',
@@ -8,25 +8,22 @@ import { environment } from '../../../environments/environment';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    appName = 'App';
-    isLoggedIn = false;
+    appName = environment.appName;
+    isAuthenticated = false;
+    isSidenavOpened = false;
     username?: string;
 
-    constructor(private tokenStorageService: TokenStorageService) {
-        this.appName = environment.appName;
-    }
+    constructor(private readonly security: SecurityService, private readonly cdRef: ChangeDetectorRef) {
+        this.isAuthenticated = this.security.isAuthenticated();
+        security.isAuthenticated$.subscribe((isAuthenticated) => this.authChanged(isAuthenticated));
 
-    ngOnInit(): void {
-        this.isLoggedIn = this.tokenStorageService.getToken() != null;
-
-        if (this.isLoggedIn) {
-            const user = this.tokenStorageService.getUser();
-            this.username = user?.getName();
+        if (this.isAuthenticated) {
+            this.security.getUser().then((user) => (this.username = user.getName()));
         }
     }
 
-    logout(): void {
-        this.tokenStorageService.signOut();
-        window.location.reload();
+    public authChanged(isAuthenticated: boolean) {
+        this.isAuthenticated = isAuthenticated;
+        this.cdRef.detectChanges();
     }
 }

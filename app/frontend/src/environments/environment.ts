@@ -10,7 +10,7 @@ export const environment = {
         gqlSchemas: {
             root: 'https://localhost:8080/api/graphql/root',
             public: 'https://localhost:8080/api/graphql/public',
-        }
+        },
     },
 };
 

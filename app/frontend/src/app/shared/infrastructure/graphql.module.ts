@@ -14,7 +14,6 @@ import { UrlGeneratorService } from './url-generator.service';
             useFactory: createApollo,
             deps: [HttpLink, TokenStorageService, UrlGeneratorService],
         },
-    ]
+    ],
 })
-export class GraphQLModule {
-}
+export class GraphQLModule {}
