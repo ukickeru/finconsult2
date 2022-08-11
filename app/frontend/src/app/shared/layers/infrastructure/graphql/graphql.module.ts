@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { APOLLO_NAMED_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { TokenStorageService } from '../security/auth/infrastructure/token-storage.service';
+import { TokenStorageService } from '../../../contexts/security/auth/infrastructure/token-storage.service';
 import { createApollo } from './apollo.factory';
-import { UrlGeneratorService } from './url-generator.service';
+import { UrlGeneratorService } from '../../../services/url-generator.service';
 
 @NgModule({
     imports: [ApolloModule, HttpClientModule],

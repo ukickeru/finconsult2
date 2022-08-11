@@ -1,8 +1,8 @@
 import { HttpLink } from 'apollo-angular/http';
 import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { TokenStorageService } from '../security/auth/infrastructure/token-storage.service';
-import { GQLSchema, UrlGeneratorService } from './url-generator.service';
+import { TokenStorageService } from '../../../contexts/security/auth/infrastructure/token-storage.service';
+import { GQLSchema, UrlGeneratorService } from '../../../services/url-generator.service';
 
 export function createApollo(httpLink: HttpLink, tokenStorage: TokenStorageService, urlGenerator: UrlGeneratorService) {
     const factory = new ApolloFactory(tokenStorage, urlGenerator);

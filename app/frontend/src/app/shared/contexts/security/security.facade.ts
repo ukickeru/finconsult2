@@ -6,7 +6,7 @@ import { AuthService } from './auth/model/auth.service';
 @Injectable({
     providedIn: 'root',
 })
-export class SecurityService {
+export class SecurityFacade {
     public isAuthenticated$: EventEmitter<boolean>;
 
     public constructor(private readonly authService: AuthService, private readonly tokenStorage: TokenStorageService) {
@@ -19,9 +19,13 @@ export class SecurityService {
 
     public async login(email: string, password: string): Promise<void> {
         return this.authService.getToken(email, password).then((token) => {
-            this.tokenStorage.setToken(token);
-            this.isAuthenticated$.emit(true);
-            this.getUser().then((user) => this.tokenStorage.setUser(user));
+            try {
+                this.tokenStorage.setToken(token);
+                this.getUser().then((user) => this.tokenStorage.setUser(user));
+                this.isAuthenticated$.emit(true);
+            } catch (error: any) {
+                throw new Error('Ошибка аутентификации: ' + error.message);
+            }
         });
     }
 

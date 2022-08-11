@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import { PreloaderComponent } from '../../shared/components/preloader/preloader.component';
-import { SecurityService } from '../../shared/security/security.service';
-import { HOME_PATH } from '../../shared/app/app-routing.module';
+import { SecurityFacade } from '../../shared/contexts/security/security.facade';
+import { HOME_PATH } from '../../root/app-routing.module';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     loginInProcess = false;
     @ViewChild('preloader', { static: true }) preloader: PreloaderComponent;
 
-    constructor(private readonly security: SecurityService, private readonly router: Router) {}
+    constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
 
     public ngOnInit(): void {
         if (this.security.isAuthenticated()) {

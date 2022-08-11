@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
-import { SecurityService } from '../../shared/security/security.service';
+import { Component } from '@angular/core';
+import { SecurityFacade } from '../../shared/contexts/security/security.facade';
 import { Router } from '@angular/router';
-import { LOGIN_PATH } from '../../shared/app/app-routing.module';
+import { LOGIN_PATH } from '../../root/app-routing.module';
 
 @Component({
     selector: 'app-logout',
@@ -10,7 +10,7 @@ import { LOGIN_PATH } from '../../shared/app/app-routing.module';
     styleUrls: ['./logout.component.scss'],
 })
 export class LogoutComponent implements OnInit {
-    constructor(private readonly security: SecurityService, private readonly router: Router) {}
+    constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
 
     public ngOnInit(): void {
         this.security.logout();

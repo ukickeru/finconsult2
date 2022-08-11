@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { SecurityService } from './security.service';
-import { HOME_PATH, LOGIN_PATH } from '../app/app-routing.module';
+import { SecurityFacade } from './security.facade';
+import { HOME_PATH, LOGIN_PATH } from '../../../root/app-routing.module';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LoginCheckerService implements CanActivate {
-    public constructor(private readonly security: SecurityService, private readonly router: Router) {}
+    public constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (!this.security.isAuthenticated()) {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import Login from '../infrastructure/api/login.graphql';
 import Profile from '../infrastructure/api/profile.graphql';
-import { GQLSchema } from '../../../infrastructure/url-generator.service';
+import { GQLSchema } from '../../../../services/url-generator.service';
 import { User } from './user';
 
 @Injectable({
