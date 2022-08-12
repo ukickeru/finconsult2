@@ -17,6 +17,10 @@ export class SecurityFacade {
         return this.tokenStorage.getToken() !== null;
     }
 
+    public subscribeOnAuthStatus(f: (isAuthenticated: boolean) => void) {
+        this.isAuthenticated$.subscribe((isAuthenticated) => f(isAuthenticated));
+    }
+
     public async login(email: string, password: string): Promise<void> {
         return this.authService.getToken(email, password).then((token) => {
             try {

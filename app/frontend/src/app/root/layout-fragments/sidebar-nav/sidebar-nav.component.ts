@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { IMenu, IMenuItem } from '../../model/routing/IMenu';
 
 @Component({
-    selector: 'app-side-navbar',
-    templateUrl: './side-navbar.component.html',
-    styleUrls: ['./side-navbar.component.css'],
+    selector: 'app-sidebar-nav',
+    templateUrl: './sidebar-nav.component.html',
+    styleUrls: ['./sidebar-nav.component.css'],
 })
-export class SideNavbarComponent {
+export class SidebarNavComponent {
     // @todo: refactor this
     menuList: IMenu[] = [
         new Menu('First option', 'group', [

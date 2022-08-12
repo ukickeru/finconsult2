@@ -1,16 +1,42 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ActivationStart, Router } from '@angular/router';
+import { SecurityFacade } from '../../../shared/contexts/security/security.facade';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
     title = '';
-    @ViewChild('header', { static: true }) header: HeaderComponent;
+    isAuthenticated: boolean;
+    @ViewChild('snav', { static: true }) snav: MatSidenav;
 
-    public ngOnInit(): void {
-        this.header.componentTitleChange$.subscribe((title) => (this.title = title));
+    constructor(
+        private readonly security: SecurityFacade,
+        private readonly cdRef: ChangeDetectorRef,
+        private readonly router: Router
+    ) {
+        this.isAuthenticated = security.isAuthenticated();
+        security.subscribeOnAuthStatus((isAuthenticated) => this.authChanged(isAuthenticated));
+        this.router.events.subscribe((data) => this.updateTitle(data));
+    }
+
+    private updateTitle(data: any) {
+        if (data instanceof ActivationStart) {
+            if (this.security.isAuthenticated()) {
+                this.title = data.snapshot.data['title'] ?? '';
+                this.cdRef.detectChanges();
+            } else {
+                this.title = '';
+                this.snav.close();
+            }
+        }
+    }
+
+    private authChanged(isAuthenticated: boolean): void {
+        this.isAuthenticated = isAuthenticated;
+        this.cdRef.detectChanges();
     }
 }

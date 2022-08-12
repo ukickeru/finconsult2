@@ -1,6 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit } from '@angular/core';
-import { ActivationStart, NavigationEnd, Router } from '@angular/router';
-import { filter, startWith } from 'rxjs/operators';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { SecurityFacade } from '../../../shared/contexts/security/security.facade';
 
 @Component({
@@ -8,41 +6,16 @@ import { SecurityFacade } from '../../../shared/contexts/security/security.facad
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
-    isAuthenticated = false;
-    componentTitleChange$: EventEmitter<string>;
-    componentTitle: string;
+export class HeaderComponent {
+    isAuthenticated: boolean;
 
-    constructor(
-        private readonly security: SecurityFacade,
-        private readonly cdRef: ChangeDetectorRef,
-        private router: Router
-    ) {
-        this.isAuthenticated = this.security.isAuthenticated();
-        this.componentTitleChange$ = new EventEmitter();
-
-        this.router.events.subscribe((data) => this.routeChanged(data));
-
-        this.router.events.pipe(
-            filter((event) => event instanceof NavigationEnd),
-            startWith(this.router)
-        );
+    constructor(private readonly security: SecurityFacade, private readonly cdRef: ChangeDetectorRef) {
+        this.isAuthenticated = security.isAuthenticated();
+        security.subscribeOnAuthStatus((isAuthenticated) => this.authChanged(isAuthenticated));
     }
 
-    ngOnInit() {
-        this.router.events.subscribe((data) => this.routeChanged(data));
-    }
-
-    private authChanged(isAuthenticated: boolean) {
+    private authChanged(isAuthenticated: boolean): void {
         this.isAuthenticated = isAuthenticated;
         this.cdRef.detectChanges();
-    }
-
-    private routeChanged(data: any) {
-        if (data instanceof ActivationStart) {
-            let title = data.snapshot.data['title'] ?? '';
-            this.componentTitle = title;
-            this.componentTitleChange$.emit(title);
-        }
     }
 }

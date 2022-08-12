@@ -1,19 +1,27 @@
 <div class="sidebar-container">
     <mat-toolbar class="sidebar-toolbar d-flex justify-content-between" color="primary">
         <div class="d-flex align-items-center">
-            <button (click)="snav.toggle()" mat-icon-button class="material-icons" aria-label="Меню">
+            <button
+                *ngIf="isAuthenticated"
+                (click)="snav.toggle()"
+                mat-icon-button
+                class="material-icons"
+                aria-label="Меню"
+            >
                 <mat-icon>menu</mat-icon>
             </button>
-            <span class="app-name">{{ title }}</span>
+            <span class="app-name ps-3">{{ title }}</span>
         </div>
         <app-header #header></app-header>
     </mat-toolbar>
     <mat-sidenav-container class="sidebar-sidenav-container">
         <mat-sidenav #snav mode="over" opened="false">
-            <app-side-navbar></app-side-navbar>
+            <app-sidebar-nav></app-sidebar-nav>
         </mat-sidenav>
-        <mat-sidenav-content class="container app-container">
-            <router-outlet></router-outlet>
+        <mat-sidenav-content>
+            <div class="container app-container">
+                <router-outlet></router-outlet>
+            </div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

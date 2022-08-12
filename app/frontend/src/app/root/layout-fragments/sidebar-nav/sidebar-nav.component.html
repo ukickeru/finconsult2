@@ -6,6 +6,22 @@
         >
         </ng-container>
     </ng-container>
+    <ng-container>
+        <div class="position-absolute left-0 right-0 bottom-0">
+            <mat-divider></mat-divider>
+            <div class="d-flex justify-content-between px-4">
+                <button routerLink="home" mat-icon-button class="material-icons" aria-label="Главная">
+                    <mat-icon>home</mat-icon>
+                </button>
+                <button routerLink="profile" mat-icon-button class="material-icons" aria-label="Профиль">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <button routerLink="logout" mat-icon-button class="material-icons" aria-label="Выйти">
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </div>
+        </div>
+    </ng-container>
 </mat-nav-list>
 
 <ng-template #parentMenu let-menu="menu">

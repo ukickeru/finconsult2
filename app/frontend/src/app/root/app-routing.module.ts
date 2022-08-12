@@ -17,11 +17,16 @@ const routes: Routes = [
     {
         path: HOME_PATH,
         component: MainShellComponent,
-        canActivate: [LoginCheckerService],
         children: [
-            { path: '', pathMatch: 'full', component: HomeComponent, data: { title: 'Главная' } },
+            {
+                path: HOME_PATH,
+                pathMatch: 'full',
+                component: HomeComponent,
+                canActivate: [LoginCheckerService],
+                data: { title: 'Главная' },
+            },
             { path: LOGIN_PATH, component: LoginComponent, data: { title: 'Вход' } },
-            { path: LOGOUT_PATH, component: LogoutComponent },
+            { path: LOGOUT_PATH, component: LogoutComponent, canActivate: [LoginCheckerService] },
             {
                 path: PROFILE_PATH,
                 component: ProfileComponent,

@@ -1,5 +1,9 @@
 @import '~mdb-ui-kit/css/mdb.min.css';
 
+/*
+ * Main layout
+ */
+
 html,
 body {
     min-height: 100vh;
@@ -8,20 +12,56 @@ body {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-.app-container {
-    height: calc(100vh - 64px);
-}
-
-.full-height {
+@mixin full-height {
     height: calc(100% - 64px);
 }
 
+.full-height {
+    @include full-height;
+}
+
+.app-container {
+    @include full-height;
+}
+
 @media (max-width: 599px) {
-    .app-container {
-        height: calc(100vh - 64px);
+    @mixin full-height {
+        height: calc(100% - 56px);
     }
 
     .full-height {
-        height: calc(100% - 56px);
+        @include full-height;
     }
+
+    .app-container {
+        @include full-height;
+    }
+}
+
+/*
+ * Positioning
+ */
+
+.left-0 {
+    left: 0 !important;
+}
+
+.left-50 {
+    left: 50% !important;
+}
+
+.left-100 {
+    left: 100% !important;
+}
+
+.right-0 {
+    right: 0 !important;
+}
+
+.right-50 {
+    right: 50% !important;
+}
+
+.right-100 {
+    right: 100% !important;
 }
