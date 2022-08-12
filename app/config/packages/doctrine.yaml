@@ -8,12 +8,12 @@ doctrine:
         auto_mapping: true
         mappings:
             Shared\Model:
-                dir: '%kernel.project_dir%/src/Shared/Model'
-                prefix: 'Finconsult\Documentor\Shared\Model'
+                dir: '%kernel.project_dir%/src/Shared/Layers/Model'
+                prefix: 'Finconsult\Documentor\Shared\Layers\Model'
                 alias: Shared\Model
             Shared\Security:
-                dir: '%kernel.project_dir%/src/Shared/Security'
-                prefix: 'Finconsult\Documentor\Shared\Security'
+                dir: '%kernel.project_dir%/src/Shared/Contexts/Security'
+                prefix: 'Finconsult\Documentor\Shared\Contexts\Security'
                 alias: Shared\Security
 
 when@test:

@@ -6,7 +6,7 @@ security:
     providers:
         app_user_provider:
             entity:
-                class: Finconsult\Documentor\Shared\Security\Model\Entity\User
+                class: Finconsult\Documentor\Shared\Contexts\Security\Model\Entity\User
                 property: email
     firewalls:
         dev:

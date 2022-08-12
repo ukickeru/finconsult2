@@ -2,7 +2,7 @@
 
 namespace Finconsult\Documentor\Shared;
 
-use Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\DependencyInjection\HandlerCompilerPass;
+use Finconsult\Documentor\Shared\Layers\Infrastructure\Controller\GraphQL\DependencyInjection\HandlerCompilerPass;
 use Finconsult\Documentor\Shared\Temporal\DependencyInjection\CompilerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;

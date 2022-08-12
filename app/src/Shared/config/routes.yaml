@@ -1,0 +1,7 @@
+controllers:
+    resource: ../Layers/Infrastructure/Controller/REST/
+    type: annotation
+
+kernel:
+    resource: ../Kernel.php
+    type: annotation

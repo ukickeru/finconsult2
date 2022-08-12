@@ -11,31 +11,29 @@ services:
         exclude:
             - '../src/Shared/**/DependencyInjection/'
             - '../src/Shared/Contexts/'
-            - '../src/Shared/Infrastructure/Controller/GraphQL/DependencyInjection/'
-            - '../src/Shared/Model/'
-            - '../src/Shared/Persistence/'
-            - '../src/Shared/Security/'
+            - '../src/Shared/Layers/Infrastructure/Controller/GraphQL/DependencyInjection/'
+            - '../src/Shared/Layers/Model/'
             - '../src/Shared/Kernel.php'
 
     # Exception listener
-    Finconsult\Documentor\Shared\Infrastructure\EventListener\RedirectingExceptionListener:
+    Finconsult\Documentor\Shared\Layers\Infrastructure\EventListener\RedirectingExceptionListener:
         public: true
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
     # GraphQL
-    Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Schema\:
-        resource: '../Infrastructure/Controller/GraphQL/Schema'
+    Finconsult\Documentor\Shared\Layers\Infrastructure\Controller\GraphQL\Schema\:
+        resource: '../Layers/Infrastructure/Controller/GraphQL/Schema'
         public: true
 
-    Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter: ~
+    Finconsult\Documentor\Shared\Layers\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter: ~
 
     Overblog\GraphQLBundle\Error\ExceptionConverterInterface:
-        class: 'Finconsult\Documentor\Shared\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter'
+        class: 'Finconsult\Documentor\Shared\Layers\Infrastructure\Controller\GraphQL\Exception\ExceptionConverter'
 
 
     # Security
-    Finconsult\Documentor\Shared\Security\:
-        resource: '../Security'
+    Finconsult\Documentor\Shared\Contexts\Security\:
+        resource: '../Contexts/Security'
         exclude:
-            - '../Security/Model/Entity/'
+            - '../Contexts/Security/Model/Entity/'
