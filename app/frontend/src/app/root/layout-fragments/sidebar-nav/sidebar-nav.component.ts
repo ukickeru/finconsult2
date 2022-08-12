@@ -4,7 +4,7 @@ import { IMenu, IMenuItem } from '../../model/routing/IMenu';
 @Component({
     selector: 'app-sidebar-nav',
     templateUrl: './sidebar-nav.component.html',
-    styleUrls: ['./sidebar-nav.component.css'],
+    styleUrls: ['./sidebar-nav.component.scss'],
 })
 export class SidebarNavComponent {
     // @todo: refactor this

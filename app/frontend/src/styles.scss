@@ -13,7 +13,7 @@ body {
 }
 
 @mixin full-height {
-    height: calc(100% - 64px);
+    height: 100%;
 }
 
 .full-height {
@@ -22,20 +22,6 @@ body {
 
 .app-container {
     @include full-height;
-}
-
-@media (max-width: 599px) {
-    @mixin full-height {
-        height: calc(100% - 56px);
-    }
-
-    .full-height {
-        @include full-height;
-    }
-
-    .app-container {
-        @include full-height;
-    }
 }
 
 /*
