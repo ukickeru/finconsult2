@@ -1,5 +1,5 @@
 <div class="sidebar-container">
-    <mat-toolbar class="sidebar-toolbar d-flex justify-content-between" color="primary">
+    <mat-toolbar *ngIf="isAuthenticated" class="sidebar-toolbar d-flex justify-content-between" color="primary">
         <div class="d-flex align-items-center">
             <button
                 *ngIf="isAuthenticated"
