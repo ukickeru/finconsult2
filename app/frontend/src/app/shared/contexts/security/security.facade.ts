@@ -24,6 +24,7 @@ export class SecurityFacade {
     public async login(email: string, password: string): Promise<void> {
         return this.authService.getToken(email, password).then((token) => {
             try {
+                console.log(token);
                 this.tokenStorage.setToken(token);
                 this.getUser().then((user) => this.tokenStorage.setUser(user));
                 this.isAuthenticated$.emit(true);

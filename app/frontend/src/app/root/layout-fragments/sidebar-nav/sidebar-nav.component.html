@@ -8,8 +8,7 @@
     </ng-container>
     <ng-container>
         <div class="position-absolute left-0 right-0 bottom-0">
-            <mat-divider></mat-divider>
-            <div class="d-flex justify-content-between px-4">
+            <div class="d-flex justify-content-between align-items-center px-4 border-top nav-footer">
                 <button routerLink="home" mat-icon-button class="material-icons" aria-label="Главная">
                     <mat-icon>home</mat-icon>
                 </button>
@@ -30,15 +29,16 @@
         routerLinkActive="is-active"
         [routerLinkActiveOptions]="{ exact: true }"
     >
-        <mat-icon>{{ menu.icon }}</mat-icon> {{ menu.text }}
+        <mat-icon>{{ menu.icon }}</mat-icon>
+        <span class="ms-3">{{ menu.text }}</span>
     </mat-list-item>
 </ng-template>
 
 <ng-template #childMenu let-menu="menu">
     <mat-expansion-panel [class.mat-elevation-z0]="true">
         <mat-expansion-panel-header>
-            <mat-icon mat-list-icon>{{ menu.icon }}</mat-icon
-            >{{ menu.text }}
+            <mat-icon mat-list-icon>{{ menu.icon }}</mat-icon>
+            <span class="ms-3">{{ menu.text }}</span>
         </mat-expansion-panel-header>
         <mat-nav-list>
             <mat-list-item
@@ -47,7 +47,8 @@
                 routerLinkActive="is-active"
                 [routerLinkActiveOptions]="{ exact: true }"
             >
-                <mat-icon>{{ submenu.icon }}</mat-icon> {{ submenu.text }}
+                <mat-icon>{{ submenu.icon }}</mat-icon>
+                <span class="ms-3">{{ submenu.text }}</span>
             </mat-list-item>
         </mat-nav-list>
     </mat-expansion-panel>

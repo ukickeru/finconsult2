@@ -4,6 +4,8 @@ import { PreloaderComponent } from '../../shared/components/preloader/preloader.
 import { SecurityFacade } from '../../shared/contexts/security/security.facade';
 import { HOME_PATH } from '../../root/app-routing.module';
 import { Router } from '@angular/router';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { Content } from '../../shared/components/modal/content';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +17,11 @@ export class LoginComponent implements OnInit {
     loginInProcess = false;
     @ViewChild('preloader', { static: true }) preloader: PreloaderComponent;
 
-    constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
+    constructor(
+        private readonly modal: ModalComponent,
+        private readonly security: SecurityFacade,
+        private readonly router: Router
+    ) {}
 
     public ngOnInit(): void {
         if (this.security.isAuthenticated()) {
@@ -32,7 +38,8 @@ export class LoginComponent implements OnInit {
             .login(this.form.getEmail(), this.form.getPassword())
             .then(() => this.redirectToHome())
             .catch((error) => {
-                window.alert('Ошибка аутентификации!\n\n' + error.message);
+                this.modal.open(new Content('Ошибка аутентификации!', error.message));
+                // window.alert('Ошибка аутентификации!\n\n' + error.message);
                 this.loginOver();
             });
     }

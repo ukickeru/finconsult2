@@ -11,13 +11,13 @@ overblog_graphql:
             types:
                 # Shared\GraphQL
                 -   type: attribute
-                    dir: "%kernel.project_dir%/src/Shared/Infrastructure/Controller/GraphQL"
+                    dir: "%kernel.project_dir%/src/Shared/Layers/Infrastructure/Controller/GraphQL"
                     suffix: ~
                 # Shared\Model
                 -   type: attribute
-                    dir: "%kernel.project_dir%/src/Shared/Model"
+                    dir: "%kernel.project_dir%/src/Shared/Layers/Model"
                     suffix: ~
                 # Shared\Security
                 -   type: attribute
-                    dir: "%kernel.project_dir%/src/Shared/Security"
+                    dir: "%kernel.project_dir%/src/Shared/Contexts/Security"
                     suffix: ~

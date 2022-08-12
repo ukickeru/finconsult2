@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Content } from './content';
+import { ModalContentComponent } from './content/modal-content.component';
 
 @Component({
     selector: 'app-modal',
@@ -6,9 +9,13 @@ import { Component } from '@angular/core';
     styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-    public state: State | null = null;
-}
+    public constructor(private dialog: MatDialog) {}
 
-export class State {
-    constructor(public title: string, public body: string) {}
+    public open(content: Content) {
+        this.dialog.open(ModalContentComponent, { data: content });
+    }
+
+    public hide() {
+        this.dialog.closeAll();
+    }
 }

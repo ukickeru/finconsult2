@@ -3,10 +3,6 @@
     height: 48px !important;
 }
 
-::ng-deep .mat-nav-list .mat-icon {
-    margin-right: 10px;
-}
-
 ::ng-deep .mat-expansion-panel-body {
     padding: 0 !important;
 }
@@ -38,4 +34,8 @@
 
 ::ng-deep .mat-list-item-content {
     padding-left: 24px !important;
+}
+
+.nav-footer {
+    height: 48px;
 }
