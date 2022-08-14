@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class UrlGeneratorService {
-    public generateAbsoluteURL(relativePath: string): string {
+    generateAbsoluteURL(relativePath: string): string {
         return environment.api.baseUrl + '/' + relativePath;
     }
 
-    public getGQLSchemaUrl(schema: GQLSchema): string {
+    getGQLSchemaUrl(schema: GQLSchema): string {
         const schemas = environment.api.gqlSchemas;
         type ObjectKey = keyof typeof schemas;
         const schemaName = schema as ObjectKey;

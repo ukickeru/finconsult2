@@ -8,16 +8,16 @@ const USER = 'auth.user';
     providedIn: 'root',
 })
 export class TokenStorageService {
-    public getToken(): string | null {
+    getToken(): string | null {
         return window.sessionStorage.getItem(TOKEN);
     }
 
-    public setToken(token: string): void {
+    setToken(token: string): void {
         window.sessionStorage.removeItem(TOKEN);
         window.sessionStorage.setItem(TOKEN, token);
     }
 
-    public getUser(): User | null {
+    getUser(): User | null {
         const user = window.sessionStorage.getItem(USER);
 
         if (user) {
@@ -31,7 +31,7 @@ export class TokenStorageService {
         return null;
     }
 
-    public setUser(user: User | object): void {
+    setUser(user: User | object): void {
         if (typeof user === 'object') {
             try {
                 user = User.fromRawObject(user);
@@ -43,7 +43,7 @@ export class TokenStorageService {
         window.sessionStorage.setItem(USER, JSON.stringify(user));
     }
 
-    public logout(): void {
+    logout(): void {
         window.sessionStorage.removeItem(TOKEN);
         window.sessionStorage.removeItem(USER);
     }

@@ -7,9 +7,9 @@ import { HOME_PATH, LOGIN_PATH, LOGOUT_PATH } from '../../../root/app-routing.mo
     providedIn: 'root',
 })
 export class LoginCheckerService implements CanActivate {
-    public constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
+    constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
 
-    public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (!this.security.isAuthenticated()) {
             if (state.url === LOGOUT_PATH) {
                 return false;

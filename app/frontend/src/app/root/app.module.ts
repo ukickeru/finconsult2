@@ -16,7 +16,6 @@ import { HomeComponent } from '../pages/home/home.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { LogoutComponent } from '../pages/logout/logout.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
-import { ModalComponent } from '../shared/components/modal/modal.component';
 
 @NgModule({
     declarations: [AppComponent, HomeComponent, LoginComponent, LogoutComponent, ProfileComponent],

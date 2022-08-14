@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center">
             <button
                 *ngIf="isAuthenticated"
-                (click)="snav.toggle()"
+                (click)="sidenav.toggle()"
                 mat-icon-button
                 class="material-icons"
                 aria-label="Меню"
@@ -15,7 +15,7 @@
         <app-header #header></app-header>
     </mat-toolbar>
     <mat-sidenav-container class="sidebar-sidenav-container">
-        <mat-sidenav #snav mode="over" opened="false">
+        <mat-sidenav #sidenav mode="over" opened="false">
             <app-sidebar-nav></app-sidebar-nav>
         </mat-sidenav>
         <mat-sidenav-content class="bg-light">

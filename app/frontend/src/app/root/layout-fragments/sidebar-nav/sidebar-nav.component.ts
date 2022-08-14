@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { IMenu, IMenuItem } from '../../model/routing/IMenu';
 
 @Component({
@@ -21,14 +21,9 @@ export class SidebarNavComponent {
 }
 
 class Menu implements IMenu {
-    public constructor(
-        public text: string,
-        public icon: string,
-        public children: IMenuItem[],
-        public routerLink?: string
-    ) {}
+    constructor(public text: string, public icon: string, public children: IMenuItem[], public routerLink?: string) {}
 }
 
 class MenuItem implements IMenuItem {
-    public constructor(public text: string, public icon: string, public routerLink: string) {}
+    constructor(public text: string, public icon: string, public routerLink: string) {}
 }

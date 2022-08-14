@@ -1,5 +1,5 @@
 export class User {
-    public constructor(private email: string, private name: string, private role: string) {
+    constructor(private email: string, private name: string, private role: string) {
         if (name.length === 0 || email.length === 0 || role.length === 0) {
             throw new Error(
                 'При загрузке учётной записи возникла ошибка: имя, email и роль пользователя не могут быть пустыми!'
@@ -7,15 +7,15 @@ export class User {
         }
     }
 
-    public getEmail(): string {
+    getEmail(): string {
         return this.email;
     }
 
-    public getName(): string {
+    getName(): string {
         return this.name;
     }
 
-    public getRole(): string {
+    getRole(): string {
         return this.role;
     }
 

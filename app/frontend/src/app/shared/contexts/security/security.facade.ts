@@ -9,22 +9,21 @@ import { AuthService } from './auth/model/auth.service';
 export class SecurityFacade {
     public isAuthenticated$: EventEmitter<boolean>;
 
-    public constructor(private readonly authService: AuthService, private readonly tokenStorage: TokenStorageService) {
+    constructor(private readonly authService: AuthService, private readonly tokenStorage: TokenStorageService) {
         this.isAuthenticated$ = new EventEmitter();
     }
 
-    public isAuthenticated(): boolean {
+    isAuthenticated(): boolean {
         return this.tokenStorage.getToken() !== null;
     }
 
-    public subscribeOnAuthStatus(f: (isAuthenticated: boolean) => void) {
+    subscribeOnAuthStatus(f: (isAuthenticated: boolean) => void) {
         this.isAuthenticated$.subscribe((isAuthenticated) => f(isAuthenticated));
     }
 
     public async login(email: string, password: string): Promise<void> {
         return this.authService.getToken(email, password).then((token) => {
             try {
-                console.log(token);
                 this.tokenStorage.setToken(token);
                 this.getUser().then((user) => this.tokenStorage.setUser(user));
                 this.isAuthenticated$.emit(true);
@@ -34,12 +33,12 @@ export class SecurityFacade {
         });
     }
 
-    public logout(): void {
+    logout(): void {
         this.tokenStorage.logout();
         this.isAuthenticated$.emit(false);
     }
 
-    public getToken(): string {
+    getToken(): string {
         let token = this.tokenStorage.getToken();
         if (typeof token === 'string') {
             return token;

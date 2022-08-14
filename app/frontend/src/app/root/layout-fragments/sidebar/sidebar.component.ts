@@ -11,7 +11,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class SidebarComponent {
     title = '';
     isAuthenticated: boolean;
-    @ViewChild('snav', { static: true }) snav: MatSidenav;
+    @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
     constructor(
         private readonly security: SecurityFacade,
@@ -23,14 +23,14 @@ export class SidebarComponent {
         this.router.events.subscribe((data) => this.updateTitle(data));
     }
 
-    private updateTitle(data: any) {
+    private updateTitle(data) {
         if (data instanceof ActivationStart) {
             if (this.security.isAuthenticated()) {
                 this.title = data.snapshot.data['title'] ?? '';
                 this.cdRef.detectChanges();
             } else {
                 this.title = '';
-                this.snav.close();
+                this.sidenav.close();
             }
         }
     }

@@ -9,22 +9,22 @@ export class PreloaderComponent {
     public isShown = false;
     public isDisplayOver = false;
 
-    public show(): PreloaderComponent {
+    show(): PreloaderComponent {
         this.isShown = true;
         return this;
     }
 
-    public hide(): PreloaderComponent {
+    hide(): PreloaderComponent {
         this.isShown = false;
         return this;
     }
 
-    public displayOver(): PreloaderComponent {
+    displayOver(): PreloaderComponent {
         this.isDisplayOver = true;
         return this;
     }
 
-    public displayNormal(): PreloaderComponent {
+    displayNormal(): PreloaderComponent {
         this.isDisplayOver = false;
         return this;
     }

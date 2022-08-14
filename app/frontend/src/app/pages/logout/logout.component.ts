@@ -12,7 +12,7 @@ import { LOGIN_PATH } from '../../root/app-routing.module';
 export class LogoutComponent implements OnInit {
     constructor(private readonly security: SecurityFacade, private readonly router: Router) {}
 
-    public ngOnInit(): void {
+    ngOnInit(): void {
         this.security.logout();
         this.router.navigate([LOGIN_PATH]);
     }

@@ -4,8 +4,8 @@ import { PreloaderComponent } from '../../shared/components/preloader/preloader.
 import { SecurityFacade } from '../../shared/contexts/security/security.facade';
 import { HOME_PATH } from '../../root/app-routing.module';
 import { Router } from '@angular/router';
-import { ModalComponent } from '../../shared/components/modal/modal.component';
-import { Content } from '../../shared/components/modal/content';
+import { ModalBuilder } from '../../shared/components/modal/model/modal.builder';
+import { ModalInterface } from '../../shared/components/modal/model/modal.interface';
 
 @Component({
     selector: 'app-login',
@@ -15,15 +15,18 @@ import { Content } from '../../shared/components/modal/content';
 export class LoginComponent implements OnInit {
     form: LoginForm = new LoginForm();
     loginInProcess = false;
+    modal: ModalInterface;
     @ViewChild('preloader', { static: true }) preloader: PreloaderComponent;
 
     constructor(
-        private readonly modal: ModalComponent,
+        private readonly modalBuilder: ModalBuilder,
         private readonly security: SecurityFacade,
         private readonly router: Router
-    ) {}
+    ) {
+        this.modal = modalBuilder.createDefault();
+    }
 
-    public ngOnInit(): void {
+    ngOnInit(): void {
         if (this.security.isAuthenticated()) {
             this.redirectToHome();
         }
@@ -31,15 +34,14 @@ export class LoginComponent implements OnInit {
         this.preloader.displayOver();
     }
 
-    public login(): void {
+    login(): void {
         this.loginStarted();
 
         this.security
             .login(this.form.getEmail(), this.form.getPassword())
             .then(() => this.redirectToHome())
             .catch((error) => {
-                this.modal.open(new Content('Ошибка аутентификации!', error.message));
-                // window.alert('Ошибка аутентификации!\n\n' + error.message);
+                this.modal.asError().setTitle('Ошибка аутентификации!').setBody(error?.message).show();
                 this.loginOver();
             });
     }
@@ -63,7 +65,7 @@ class LoginForm {
     public email: string | null = null;
     public password: string | null = null;
 
-    public getEmail(): string {
+    getEmail(): string {
         if (this.email === null) {
             throw new Error('Введите email!');
         }
@@ -71,7 +73,7 @@ class LoginForm {
         return this.email;
     }
 
-    public getPassword(): string {
+    getPassword(): string {
         if (this.password === null) {
             throw new Error('Введите пароль!');
         }

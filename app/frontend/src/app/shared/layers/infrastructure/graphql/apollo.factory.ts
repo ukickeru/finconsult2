@@ -10,9 +10,9 @@ export function createApollo(httpLink: HttpLink, tokenStorage: TokenStorageServi
 }
 
 class ApolloFactory {
-    public constructor(private tokenStorage: TokenStorageService, private urlGenerator: UrlGeneratorService) {}
+    constructor(private tokenStorage: TokenStorageService, private urlGenerator: UrlGeneratorService) {}
 
-    public createApollo(httpLink: HttpLink) {
+    createApollo(httpLink: HttpLink) {
         return {
             root: this.forRootSchema(httpLink),
             public: this.forPublicSchema(httpLink),
