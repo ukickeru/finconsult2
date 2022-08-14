@@ -23,7 +23,7 @@ export class SidebarComponent {
         this.router.events.subscribe((data) => this.updateTitle(data));
     }
 
-    private updateTitle(data) {
+    private updateTitle(data: any) {
         if (data instanceof ActivationStart) {
             if (this.security.isAuthenticated()) {
                 this.title = data.snapshot.data['title'] ?? '';
