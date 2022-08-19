@@ -27,11 +27,11 @@ export class AuthService {
                         try {
                             resolve(data.data.security_login);
                         } catch (error: any) {
-                            reject(Error('Во время аутентификации возникла ошибка: ' + error.message));
+                            reject(Error(error.message));
                         }
                     },
                     error: (error: Error) => {
-                        reject(Error('Во время аутентификации возникла ошибка: ' + error.message));
+                        reject(Error(error.message));
                     },
                 });
         });
@@ -47,11 +47,11 @@ export class AuthService {
                         try {
                             resolve(User.fromRawObject(data.data.security_profile));
                         } catch (error: any) {
-                            reject(Error('Во время загрузки данных профиля возникла ошибка: ' + error.message));
+                            reject(Error(error.message));
                         }
                     },
                     error: (error: Error) => {
-                        reject(Error('Во время загрузки данных профиля возникла ошибка: ' + error.message));
+                        reject(Error(error.message));
                     },
                 });
         });

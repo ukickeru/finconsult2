@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         this.security
             .login(this.form.getEmail(), this.form.getPassword())
             .then(() => this.redirectToHome())
-            .catch((error) => {
+            .catch((error: any) => {
                 this.modal.asError().setTitle('Ошибка аутентификации!').setBody(error?.message).show();
                 this.loginOver();
             });

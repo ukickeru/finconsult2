@@ -22,15 +22,18 @@ export class SecurityFacade {
     }
 
     public async login(email: string, password: string): Promise<void> {
-        return this.authService.getToken(email, password).then((token) => {
-            try {
+        return this.authService.getToken(email, password).then(
+            (token) => {
                 this.tokenStorage.setToken(token);
-                this.getUser().then((user) => this.tokenStorage.setUser(user));
-                this.isAuthenticated$.emit(true);
-            } catch (error: any) {
-                throw new Error('Ошибка аутентификации: ' + error.message);
+                this.getUser().then((user) => {
+                    this.isAuthenticated$.emit(true);
+                    this.tokenStorage.setUser(user);
+                });
+            },
+            (error) => {
+                throw new Error(error?.message ?? 'Ошибка аутентификации!');
             }
-        });
+        );
     }
 
     logout(): void {
@@ -58,10 +61,15 @@ export class SecurityFacade {
                 resolve(existingUser);
             }
 
-            return this.authService.getUser().then((user) => {
-                this.tokenStorage.setUser(user);
-                return user;
-            });
+            return this.authService.getUser().then(
+                (user: User) => {
+                    this.tokenStorage.setUser(user);
+                    resolve(user);
+                },
+                (error) => {
+                    reject(error);
+                }
+            );
         });
     }
 }

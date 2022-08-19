@@ -5,16 +5,18 @@ namespace Finconsult\Documentor\Shared\Contexts\Security\Model\Entity;
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Finconsult\Documentor\Shared\Contexts\Security\Infrastructure\Repository\UserRepository;
-use Finconsult\Documentor\Shared\Layers\Model\Traits\IdTrait;
+use Finconsult\Documentor\Shared\Layers\Model\EntityInterface;
+use Finconsult\Documentor\Shared\Layers\Model\IdentityGeneratorInterface;
+use Finconsult\Documentor\Shared\Layers\Model\Traits\IdentityTrait;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User implements UserInterface, SymfonyUserInterface, PasswordAuthenticatedUserInterface
+class User implements EntityInterface, UserInterface, SymfonyUserInterface, PasswordAuthenticatedUserInterface
 {
-    use IdTrait;
+    use IdentityTrait;
 
     public const ROLE_USER = 'ROLE_USER';
     public const ROLE_LAWYER = 'ROLE_LAWYER';
@@ -45,6 +47,7 @@ class User implements UserInterface, SymfonyUserInterface, PasswordAuthenticated
     private bool $enabled;
 
     public function __construct(
+        IdentityGeneratorInterface $identityGenerator,
         string $email,
         string $name,
         string $password,
@@ -52,6 +55,7 @@ class User implements UserInterface, SymfonyUserInterface, PasswordAuthenticated
         string $role = self::ROLE_USER,
         bool $enabled = true
     ) {
+        $this->initId($identityGenerator);
         $this->setEmail($email);
         $this->setName($name);
         $this->setRole($role);

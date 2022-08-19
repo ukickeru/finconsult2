@@ -1,8 +1,8 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Content } from '../model/content';
+import { Content } from './content';
 import { ModalContentComponent } from '../content/modal-content.component';
-import { ModalInterface } from '../model/modal.interface';
-import { Option } from '../model/option';
+import { ModalInterface } from './modal.interface';
+import { Option } from './option';
 
 export class ModalComponent implements ModalInterface {
     constructor(private content: Content, private dialog: MatDialog) {}

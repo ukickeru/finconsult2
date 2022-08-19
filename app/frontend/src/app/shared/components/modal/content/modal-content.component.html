@@ -10,12 +10,7 @@
 </h2>
 <mat-dialog-content>{{ content.body }}</mat-dialog-content>
 <mat-dialog-actions *ngIf="content.options.length > 0; else defaultOption">
-    <button
-        mat-button
-        mat-dialog-close="true"
-        *ngFor="let option of content.options"
-        (click)="option.call()"
-    >
+    <button mat-button mat-dialog-close="true" *ngFor="let option of content.options" (click)="option.call()">
         {{ option.title }}
     </button>
 </mat-dialog-actions>

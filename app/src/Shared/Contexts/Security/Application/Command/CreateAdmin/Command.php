@@ -3,6 +3,7 @@
 namespace Finconsult\Documentor\Shared\Contexts\Security\Application\Command\CreateAdmin;
 
 use Finconsult\Documentor\Shared\Contexts\Security\Model\Entity\User;
+use Finconsult\Documentor\Shared\Contexts\Security\Model\UserFactory;
 use Finconsult\Documentor\Shared\Layers\Application\Command\CommandInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -15,18 +16,17 @@ class Command implements CommandInterface
     ) {
     }
 
-    public function createUser(UserPasswordHasherInterface $passwordHasher): User
+    public function createAdmin(UserFactory $userFactory): User
     {
-        return new User(
+        return $userFactory->create(
             $this->email,
             $this->name,
             $this->password,
-            $passwordHasher,
             User::ROLE_ADMIN
         );
     }
 
-    public function updateUser(User $user, UserPasswordHasherInterface $passwordHasher): User
+    public function updateAdmin(User $user, UserPasswordHasherInterface $passwordHasher): User
     {
         if (!$user->isAdmin()) {
             throw new \DomainException('Указанный пользователь не является администратором!');

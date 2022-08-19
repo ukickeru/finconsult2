@@ -7,6 +7,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Finconsult\Documentor\Shared\Contexts\Security\Application\Command\CreateAdmin\AdminFinderInterface;
 use Finconsult\Documentor\Shared\Contexts\Security\Model\Entity\User;
 use Finconsult\Documentor\Shared\Layers\Infrastructure\Persistence\Doctrine\RepositoryTrait;
+use Finconsult\Documentor\Shared\Layers\Model\IdentityGeneratorInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,7 +15,7 @@ use Finconsult\Documentor\Shared\Layers\Infrastructure\Persistence\Doctrine\Repo
  * @method User[] findAll()
  * @method User[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements AdminFinderInterface
+class UserRepository extends ServiceEntityRepository implements IdentityGeneratorInterface, AdminFinderInterface
 {
     use RepositoryTrait;
 

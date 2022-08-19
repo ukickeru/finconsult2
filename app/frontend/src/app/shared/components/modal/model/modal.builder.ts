@@ -3,7 +3,7 @@ import { ModalInterface } from './modal.interface';
 import { Option } from './option';
 import { Type } from './type';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../component/modal.component';
+import { ModalComponent } from './modal.component';
 import { Content } from './content';
 
 @Injectable({

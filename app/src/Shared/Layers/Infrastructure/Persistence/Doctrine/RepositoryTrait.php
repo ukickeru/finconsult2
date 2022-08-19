@@ -2,8 +2,25 @@
 
 namespace Finconsult\Documentor\Shared\Layers\Infrastructure\Persistence\Doctrine;
 
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+
 trait RepositoryTrait
 {
+    public function generateId(): int|string
+    {
+        try {
+            $platform = $this->_em->getConnection()->getDriver()->getDatabasePlatform();
+        } catch (\Throwable $exception) {
+            throw new \RuntimeException('Ошибка при попытке сгенерировать ID в "' . $this::class . '": ' . $exception->getMessage());
+        }
+
+        if ($platform instanceof PostgreSQLPlatform) {
+            return $this->_em->getConnection()->prepare('SELECT gen_random_uuid();')->executeQuery()->fetchOne();
+        }
+
+        throw new \RuntimeException('Не удалось определить тип БД для генерации ID в ' . $this::class);
+    }
+
     /**
      * @param object $entity entity object to persist
      *
